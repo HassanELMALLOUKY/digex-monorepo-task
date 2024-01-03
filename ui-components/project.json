@@ -23,10 +23,7 @@
         "port": 4400,
         "configDir": "ui-components/.storybook",
         "browserTarget": "ui-components:build-storybook",
-        "compodoc": false,
-        "styles": [
-          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
-        ]
+        "compodoc": false
       },
       "configurations": {
         "ci": {
@@ -41,7 +38,10 @@
         "outputDir": "dist/storybook/ui-components",
         "configDir": "ui-components/.storybook",
         "browserTarget": "ui-components:build-storybook",
-        "compodoc": false
+        "compodoc": false,
+        "styles": [
+          "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+        ]
       },
       "configurations": {
         "ci": {

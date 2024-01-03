@@ -12,7 +12,11 @@ export default meta;
 type Story = StoryObj<CardComponent>;
 
 export const Primary: Story = {
-  args: {},
+  args: {
+    count: 1,
+    first_line: "first line",
+    Subject: "subject"
+  },
 };
 
 export const Heading: Story = {
