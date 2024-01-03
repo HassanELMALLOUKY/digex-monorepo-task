@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@digex-task/storybook-lib": ["storybook-lib/src/index.ts"],
+      "@digex-task/ui-components": ["ui-components/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
