@@ -14,7 +14,6 @@ type Story = StoryObj<ButtonComponent>;
 export const Primary: Story = {
   args: {
     text: 'Create New Letter',
-    size: 10,
     color: 'primary',
   },
 };
@@ -22,7 +21,6 @@ export const Primary: Story = {
 export const Heading: Story = {
   args: {
     text: 'Create New Letter',
-    size: 10,
     color: 'primary',
   },
   play: async ({ canvasElement }) => {
