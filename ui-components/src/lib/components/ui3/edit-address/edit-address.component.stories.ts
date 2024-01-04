@@ -12,7 +12,9 @@ export default meta;
 type Story = StoryObj<EditAddressComponent>;
 
 export const Primary: Story = {
-  args: {},
+  args: {
+    
+  },
 };
 
 
