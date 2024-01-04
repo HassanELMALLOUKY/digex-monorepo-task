@@ -1,6 +1,6 @@
 import { Component,  } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -21,13 +21,13 @@ import {
   styleUrl: './edit-address.component.css',
 })
 export class EditAddressComponent{
+  form: FormGroup;
 
-  constructor(private fb: FormBuilder){}
-
-
-  form = this.fb.group({
-    items: this.fb.array([]),
-  });
+  constructor(private fb: FormBuilder){
+    this.form = this.fb.group({
+      items: this.fb.array([]),
+    });
+  }
 
   get items(){
     return this.form.get('items') as FormArray

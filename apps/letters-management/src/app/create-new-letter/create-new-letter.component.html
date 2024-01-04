@@ -34,8 +34,8 @@
           <digex-task-input-single-line [label]="firstInput" [(ngModel)]="formData.senderAddress"></digex-task-input-single-line>
         </div>
       </div>
-      <div class="row mb-2">
-        <div class="form-group">
+      <div class="row mb-2" (click)="openDialog()">
+        <div class="form-group" >
           <digex-task-input-textarea-dashed [label]="firstDashedInput" [content]="dashedAreaContent"></digex-task-input-textarea-dashed>
         </div>
       </div>
