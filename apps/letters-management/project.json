@@ -19,7 +19,9 @@
           "apps/letters-management/src/favicon.ico",
           "apps/letters-management/src/assets"
         ],
-        "styles": ["apps/letters-management/src/styles.css"],
+        "styles": [
+          "apps/letters-management/src/styles.css"
+        ],
         "scripts": []
       },
       "configurations": {
