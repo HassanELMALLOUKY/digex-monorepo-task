@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  @Input() count=1;
+  @Input() count=2;
   @Input() first_line="First line of receiver address";
   @Input() Subject="This is an example subject line"
 
