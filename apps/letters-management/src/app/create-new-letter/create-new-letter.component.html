@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <button mat-icon-button (click)="goBackHome()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_back"></mat-icon>
+      </button>
+      <span style="vertical-align: middle;">BACK TO OVERVIEW</span>
+    </div>
+    <span class="example-spacer"></span>
+    <div class="col-3">
+      <h1 class="text-center">Letter 1</h1>
+    </div>
+    <span class="example-spacer"></span>
+    <div class="col-3">
+      <digex-task-slide-toggle></digex-task-slide-toggle>
+      <span class="mb-4"></span>
+      <digex-task-button [buttonText]="myButtonText" (click)="onSubmit()" ></digex-task-button>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="container section-container" [class.mat-elevation-z2]="true" [style.padding-top.%]="5">
+    <div class="row justify-content-end">
+      <div class="col-12">
+        <img src="https://www.w-ays.de/wp-content/uploads/W-AYS-2017-300x81.png" alt="W-ays" width="10%" height="auto" class="top-right-image" >
+      </div>
+    </div>
+    <form >
+      <div class="row">
+        <div class="form-group">
+          <digex-task-input-single-line [label]="firstInput" [(ngModel)]="formData.senderAddress"></digex-task-input-single-line>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="form-group">
+          <digex-task-input-textarea-dashed [label]="firstDashedInput" [content]="dashedAreaContent"></digex-task-input-textarea-dashed>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="form-group">
+          <digex-task-input-textarea-dashed [label]="secondDashedInput" [content]="dashedAreaContent"></digex-task-input-textarea-dashed>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <digex-task-input-single-line [label]="secondInput" [(ngModel)]="formData.subject"></digex-task-input-single-line>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <digex-task-input-textarea label="Body"></digex-task-input-textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <digex-task-input-single-line [label]="thirdInput"></digex-task-input-single-line>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

@@ -12,5 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 export class InputSingleLineComponent {
   @Input() label:string="Label";
   @Input() placeHolder:string="Write Something";
+  @Input() value: string="";
 
 }

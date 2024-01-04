@@ -13,18 +13,7 @@ type Story = StoryObj<ButtonComponent>;
 
 export const Primary: Story = {
   args: {
-    text: 'Create New Letter',
+    buttonText: 'Create New Letter',
     color: 'primary',
-  },
-};
-
-export const Heading: Story = {
-  args: {
-    text: 'Create New Letter',
-    color: 'primary',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    expect(canvas.getByText(/button works!/gi)).toBeTruthy();
   },
 };

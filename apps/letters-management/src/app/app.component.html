@@ -1,5 +1,19 @@
 <!-- your.component.html or any other component -->
-<div class="container">
-  <h1 class="text-element">My Letters</h1>
-  <digex-task-button></digex-task-button>
+<div *ngIf="isHome()" class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <h1 class="text-element">My Letters</h1>
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
+      <digex-task-button routerLink="/create" [buttonText]="buttonText"></digex-task-button>
+    </div>
+  </div>
+  <div class="row">
+    <digex-task-card [count]="letterCount"></digex-task-card>
+  </div>
 </div>
+<router-outlet></router-outlet>
+
+
