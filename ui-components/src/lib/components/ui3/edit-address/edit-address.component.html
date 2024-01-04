@@ -1,19 +1,31 @@
-<form [formGroup]="addressForm">
-  <div formArrayName="lines">
-    <div *ngFor="let line of addressForm.get('lines')['controls']; let i = index">
-      <mat-form-field appearance="outline">
-        <mat-label>Line {{ i + 1 }}</mat-label>
-        <input matInput placeholder="Placeholder" formControlName="{{ i }}">
-      </mat-form-field>
-      <button *ngIf="i !== 0" (click)="removeLine(i)">Remove</button>
-    </div>
-  </div>
-  <button (click)="addLine()">+ ADD LINE</button>
 
-  <div>
-    <p *ngFor="let line of addressForm.get('lines')['controls']; let i = index">
-      {{ line.value }}
-    </p>
-  </div>
-
-  </form>
+      
+      
+      <h1 mat-dialog-title>Edit receiver address</h1>
+      <div mat-dialog-content>
+        <form [formGroup]="form">
+          <div formArrayName="items">
+            <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+  
+              <mat-form-field appearance="outline">
+                <mat-label>Line {{ i + 1 }}</mat-label>
+                <input matInput placeholder="Line" type="text" formControlName="line">
+              </mat-form-field>
+  
+              <button (click)="removeLine(i)"><mat-icon>delete_forever</mat-icon></button>
+            </div>
+  
+          </div>
+          <button (click)="addLine()">+ ADD LINE</button>
+          <div>
+            <h4>Entered Address:</h4>
+            <div *ngFor="let item of form.get('items').controls; let i = index">
+              <p>Line {{ i + 1 }}: {{ item.get('line').value }}</p>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>No</button>
+        <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+      </div>
