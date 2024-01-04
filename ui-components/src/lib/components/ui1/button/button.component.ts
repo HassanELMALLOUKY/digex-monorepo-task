@@ -9,11 +9,11 @@ export type ButtonStyle="primary"|"secondary";
   selector: 'digex-task-button',
   standalone: true,
   imports: [CommonModule, MatButtonModule],
-  templateUrl: './button.component.html',
+  template: '<button mat-raised-button [color]="color">{{buttonText}}</button>',
   styleUrl: './button.component.css',
 })
 export class ButtonComponent {
-  @Input() text = "New Letter";
+  @Input() buttonText:string = "";
   @Input() color:ButtonStyle="primary";
 
 

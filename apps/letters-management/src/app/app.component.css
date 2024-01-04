@@ -1,13 +1,1 @@
 /* your.component.css or your global styles */
-.container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.text-element {
-  /* Add any styles you want for the text */
-}
-
-.button-element {
-  /* Add any styles you want for the button */
-}

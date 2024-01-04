@@ -1,0 +1,21 @@
+.example-spacer {
+  flex: 1 0;
+}
+
+/* material-section.component.css */
+.section-container {
+  position: relative;
+}
+
+.top-right-image {
+  position: absolute;
+  right: 0;
+  width: 100px; /* Adjust the width of the image */
+  height: auto;
+  margin-right: 5%;
+}
+
+
+
+
+
