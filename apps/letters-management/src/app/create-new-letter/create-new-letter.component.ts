@@ -73,8 +73,7 @@ export class CreateNewLetterComponent implements OnInit{
   
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddressComponent, {
-      width: '400px', // Set your preferred width
-      // Add any other dialog configuration options as needed
+      width: '600px',
     });
 }
 }
