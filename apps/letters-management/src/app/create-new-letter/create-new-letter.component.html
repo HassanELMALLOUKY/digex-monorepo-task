@@ -1,18 +1,19 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-3">
+    <div class="col-3" style="display: flex; align-items: center;">
       <button mat-icon-button (click)="goBackHome()">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_back"></mat-icon>
       </button>
-      <span style="vertical-align: middle;">BACK TO OVERVIEW</span>
+      <span style="margin-top: 7px; font-weight: bold">BACK TO OVERVIEW</span>
+    </div>
+
+    <span class="example-spacer"></span>
+    <div class="col-3" style="margin-top: 7px">
+      <h3 class="text-center">Letter {{ letterCount+1 }}</h3>
     </div>
     <span class="example-spacer"></span>
-    <div class="col-3">
-      <h1 class="text-center">Letter 1</h1>
-    </div>
-    <span class="example-spacer"></span>
-    <div class="col-3">
-      <digex-task-slide-toggle (click)="onPreview()"></digex-task-slide-toggle>
+    <div class="col-3" style="margin-top: 7px">
+      <digex-task-slide-toggle (click)="onPreview()" [style.margin-right.%]="35"></digex-task-slide-toggle>
       <span class="mb-4"></span>
       <digex-task-button [buttonText]="myButtonText" (click)="onSubmit()" ></digex-task-button>
     </div>

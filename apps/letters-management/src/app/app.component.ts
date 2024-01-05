@@ -5,7 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ButtonComponent } from '../../../../ui-components/src/lib/components/ui1/button/button.component';
 import { CardComponent } from '../../../../ui-components/src/lib/components/ui1/card/card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { Location, NgIf } from '@angular/common';
+import { Location, NgForOf, NgIf } from '@angular/common';
+import { LetterManagementService } from './services/letter-management.service';
+import { LetterModel } from './models/letter-model';
 @Component({
   standalone: true,
   imports: [NxWelcomeComponent,
@@ -13,7 +15,7 @@ import { Location, NgIf } from '@angular/common';
     ButtonComponent,
     MatButtonModule,
     CardComponent,
-    MatIconModule, NgIf
+    MatIconModule, NgIf, NgForOf
 
   ],
   selector: 'digex-task-root',
@@ -21,8 +23,9 @@ import { Location, NgIf } from '@angular/common';
   styleUrl: './app.component.css',
 })
 export class AppComponent  implements OnInit{
+  protected letters: LetterModel[]=[];
 
-  constructor(private location: Location) {
+  constructor(private location: Location,private letterManagementService: LetterManagementService) {
   }
 
   letterCount: number = 0;
@@ -30,10 +33,17 @@ export class AppComponent  implements OnInit{
   buttonText: string="Create New Letter";
 
   ngOnInit(): void {
-
+    this.letterManagementService.data$.subscribe((data) => {
+      this.letters = data;
+      this.letterCount = this.letters.length;
+    });
+    //this.letters = this.letterManagementService.getAllLetters();
   }
   isHome(): boolean {
     return this.location.path() === '';
   }
 
+  resetLetters() {
+    localStorage.clear();
+  }
 }

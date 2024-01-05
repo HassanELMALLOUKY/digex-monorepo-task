@@ -6,12 +6,16 @@
     </div>
     <div class="col-md-3"></div>
     <div class="col-md-3"></div>
-    <div class="col-md-3">
+    <div class="col-md-3 create-class">
       <digex-task-button routerLink="/create" [buttonText]="buttonText"></digex-task-button>
     </div>
+    <button (click)="resetLetters()">Reset</button>
   </div>
-  <div class="row">
-    <digex-task-card [count]="letterCount"></digex-task-card>
+  <div *ngIf="letters?.length!=0" class="row">
+    <div class="col-3" style="margin-left: 5px" *ngFor="let letter of letters">
+      <digex-task-card [count]="letter.id" [first_line]="letter.receiverAddress.toString()" [Subject]="letter.subject" ></digex-task-card>
+    </div>
+
   </div>
 </div>
 <router-outlet></router-outlet>

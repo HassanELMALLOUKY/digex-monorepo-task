@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
 import { LetterManagementService } from '../services/letter-management.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import {EditAddressComponent} from '../../../../../ui-components/src/lib/components/ui3/edit-address/edit-address.component';
-import { mapLetterModelToJson } from '../services/mapper/letter-mapper';
+import { mapJsonToLetterModel, mapLetterModelToJson } from '../services/mapper/letter-mapper';
 @Component({
   selector: 'digex-task-create-new-letter',
   standalone: true,
@@ -33,22 +33,27 @@ import { mapLetterModelToJson } from '../services/mapper/letter-mapper';
 })
 export class CreateNewLetterComponent implements OnInit{
   inputData: { [key: string]: any } = {};
+  letterCount: number = 0;
   receiverAddress: string[]=["Receiver Address","Receiver Address","Receiver Address"];
   blockA: string[]=["Block A", "Block A"];
   myButtonText: string="Save";
   isOnPreview: boolean=false;
-  dashedAreaContent: string[]=["Sender Name", "Sender Address"];
   constructor(private router: Router,private letterManagementService: LetterManagementService,private fb: FormBuilder, private dialog: MatDialog) {
   }
 
 
   goBackHome() {
-     this.router.navigate(['/']);
+     this.router.navigate(['/']).then(
+       ()=>{
+         // refresh the page
+          window.location.reload();
+       }
+     );
   }
 
   ngOnInit(): void {
-
-    this.letterManagementService.saveLetter({
+    this.letterCount = this.letterManagementService.getAllLetters().reduce((max, letter) => (letter.id > max ? letter.id : max), 0);
+    /*this.letterManagementService.saveLetter({
       id: 1,
       senderAddress: "Company GmbH, Musterstraße 10, 12345 Musterstadt",
       receiverAddress: ["Test GmbH","Wallstraße 8, Frankfurt","GERMANY"],
@@ -56,14 +61,13 @@ export class CreateNewLetterComponent implements OnInit{
       subject: "This is an example subject line",
       body: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
       footnote: ""
-    });
+    });*/
     //console.log("Letter saved!", this.letterManagementService.getLetter("1"));
   }
 
   onSubmit(): void {
-    // @ts-ignore
-    console.log('Form submitted:', this.formData);
-    // Add your form submission logic here
+    this.letterManagementService.saveLetter(mapJsonToLetterModel(this.inputData));
+    console.log("Letter saved!");
   }
 
   openDialog(): void {
