@@ -6,6 +6,8 @@ import { ButtonComponent } from '../../../../ui-components/src/lib/components/ui
 import { CardComponent } from '../../../../ui-components/src/lib/components/ui1/card/card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { Location, NgIf } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
+
 @Component({
   standalone: true,
   imports: [NxWelcomeComponent,
@@ -13,7 +15,8 @@ import { Location, NgIf } from '@angular/common';
     ButtonComponent,
     MatButtonModule,
     CardComponent,
-    MatIconModule, NgIf
+    MatIconModule, NgIf, 
+    MatDialogModule
 
   ],
   selector: 'digex-task-root',

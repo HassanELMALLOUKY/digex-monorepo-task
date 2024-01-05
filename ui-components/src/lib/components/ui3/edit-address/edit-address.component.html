@@ -1,34 +1,48 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-          
-        
-        <h2 mat-dialog-title>{{ cardTitel }}</h2>
-        <mat-dialog-content>
-          <form [formGroup]="form">
-            <div formArrayName="items">
-              <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
-    
-                <mat-form-field appearance="outline">
-                  <mat-label>Line {{ i + 1 }}</mat-label>
-                  <input matInput placeholder="Line" type="text" formControlName="line">
-                </mat-form-field>
-    
-                <mat-icon (click)="removeLine(i)" style="color: red; padding-left: 10px">delete_forever</mat-icon>
-              </div>
-    
+
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ data.cardTitel }}</h5>
+    <!-- Your form content -->
+    <form [formGroup]="form">
+      <div formArrayName="items">
+        <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" style="width: 100%;">
+
+
+
+          <mat-form-field appearance="outline" style="width: 90%;">
+            <mat-label>Line {{ i + 1 }}</mat-label>
+            <input matInput placeholder="Line" type="text" formControlName="line">
+          </mat-form-field>
+
+          <mat-icon (click)="removeLine(i)" style="color: red; margin-left: 10px;">delete_forever</mat-icon>
+        </div>
+
+      </div>
+      <a class="add-line" (click)="addLine()">
+        <mat-icon>add</mat-icon>
+        <span>ADD LINE</span>
+      </a>
+      <mat-divider></mat-divider>
+          <div>
+            <p class="font-weight-bold-preview">Preview</p>
+            <div *ngFor="let item of items.controls; let i = index">
+              <p class="item-preview">{{ item.get('line')?.value }}</p>
             </div>
-            <a class="add-line" (click)="addLine()">+ ADD LINE</a>
-            
-                <div>
-                  <h4>Entered Address:</h4>
-                  <div *ngFor="let item of items.controls; let i = index">
-                    <h5>{{ item.get('line')?.value }}</h5>
-                  </div>
-                </div>
-            
-          </form>
-        </mat-dialog-content>
-        <mat-dialog-actions>
-          <button mat-button color="primary">CANCEL</button>
-          <digex-task-button [color]="'primary'" [buttonText]="'APPLY'"></digex-task-button>
+          </div>
+      <mat-divider></mat-divider>
+
+      
+    </form>
+    <div class="row justify-content-end mt-8">
+      <div class="col-auto">
+        <mat-dialog-actions class="button-container">
+          <button mat-button color="primary" (click)="onCancelClick()">CANCEL</button>
+          <div><digex-task-button [color]="'primary'" [buttonText]="'APPLY'" ></digex-task-button></div>
         </mat-dialog-actions>
+      </div>
+    </div>
+  </div>
+</div>
