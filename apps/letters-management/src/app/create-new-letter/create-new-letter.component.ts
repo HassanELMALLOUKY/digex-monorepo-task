@@ -23,6 +23,8 @@ import { Router } from '@angular/router';
 import { LetterManagementService } from '../services/letter-management.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import {EditAddressComponent} from '../../../../../ui-components/src/lib/components/ui3/edit-address/edit-address.component';
+
+
 @Component({
   selector: 'digex-task-create-new-letter',
   standalone: true,
@@ -74,6 +76,10 @@ export class CreateNewLetterComponent implements OnInit{
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddressComponent, {
       width: '600px',
+      data: { cardTitel: "Edit receiver address" }
     });
-}
+    
+  }
+
+    
 }
