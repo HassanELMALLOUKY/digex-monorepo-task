@@ -23,8 +23,7 @@ import { Router } from '@angular/router';
 import { LetterManagementService } from '../services/letter-management.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import {EditAddressComponent} from '../../../../../ui-components/src/lib/components/ui3/edit-address/edit-address.component';
-
-
+import { mapLetterModelToJson } from '../services/mapper/letter-mapper';
 @Component({
   selector: 'digex-task-create-new-letter',
   standalone: true,
@@ -33,17 +32,11 @@ import {EditAddressComponent} from '../../../../../ui-components/src/lib/compone
   styleUrl: './create-new-letter.component.css',
 })
 export class CreateNewLetterComponent implements OnInit{
-  formData = {
-    senderAddress: '',
-    subject: '',
-  };
-  firstInput: string="Sender Address";
-  secondInput: string="Subject (optional)";
-  thirdInput: string="Footnote (optional)";
-  firstDashedInput: string="Receiver Address";
-  secondDashedInput: string="Block A";
+  inputData: { [key: string]: any } = {};
+  receiverAddress: string[]=["Receiver Address","Receiver Address","Receiver Address"];
+  blockA: string[]=["Block A", "Block A"];
   myButtonText: string="Save";
-
+  isOnPreview: boolean=false;
   dashedAreaContent: string[]=["Sender Name", "Sender Address"];
   constructor(private router: Router,private letterManagementService: LetterManagementService,private fb: FormBuilder, private dialog: MatDialog) {
   }
@@ -57,14 +50,14 @@ export class CreateNewLetterComponent implements OnInit{
 
     this.letterManagementService.saveLetter({
       id: 1,
-      senderAddress: "Sender Address",
-      receiverAddress: ["Receiver Address","Receiver Address"],
-      blockA: ["Block A", "Block A"],
-      subject: "Subject (optional)",
-      body: "Body",
-      footnote: "Footnote (optional)"
+      senderAddress: "Company GmbH, Musterstraße 10, 12345 Musterstadt",
+      receiverAddress: ["Test GmbH","Wallstraße 8, Frankfurt","GERMANY"],
+      blockA: ["Date: 01.01.2023","Contact person: Max Mustermann"],
+      subject: "This is an example subject line",
+      body: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+      footnote: ""
     });
-    console.log("Letter saved!", this.letterManagementService.getLetter("1"));
+    //console.log("Letter saved!", this.letterManagementService.getLetter("1"));
   }
 
   onSubmit(): void {
@@ -72,14 +65,19 @@ export class CreateNewLetterComponent implements OnInit{
     console.log('Form submitted:', this.formData);
     // Add your form submission logic here
   }
-  
+
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddressComponent, {
       width: '600px',
       data: { cardTitel: "Edit receiver address" }
     });
-    
+}
+// handle the output from the input component
+  handleDataChange(key:string,data: string) {
+    this.inputData[key] = data;
   }
-
-    
+  onPreview():void{
+    this.inputData=mapLetterModelToJson(this.letterManagementService.getLetter("1"));
+    this.isOnPreview=!this.isOnPreview;
+  }
 }
