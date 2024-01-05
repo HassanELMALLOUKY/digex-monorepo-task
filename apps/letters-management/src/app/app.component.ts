@@ -5,7 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ButtonComponent } from '../../../../ui-components/src/lib/components/ui1/button/button.component';
 import { CardComponent } from '../../../../ui-components/src/lib/components/ui1/card/card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { Location, NgForOf, NgIf } from '@angular/common';
+import { Location, NgIf } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { LetterManagementService } from './services/letter-management.service';
 import { LetterModel } from './models/letter-model';
 @Component({
@@ -15,7 +17,8 @@ import { LetterModel } from './models/letter-model';
     ButtonComponent,
     MatButtonModule,
     CardComponent,
-    MatIconModule, NgIf, NgForOf
+    MatIconModule, NgIf,
+    MatDialogModule
 
   ],
   selector: 'digex-task-root',

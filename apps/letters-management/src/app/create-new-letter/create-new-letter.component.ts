@@ -73,6 +73,7 @@ export class CreateNewLetterComponent implements OnInit{
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddressComponent, {
       width: '600px',
+      data: { cardTitel: "Edit receiver address" }
     });
 }
 // handle the output from the input component
