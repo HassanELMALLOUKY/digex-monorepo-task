@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+
 import {
   SlideToggleComponent
 } from '../../../../../ui-components/src/lib/components/ui2/slide-toggle/slide-toggle.component';
@@ -20,11 +22,11 @@ import {
 import { Router } from '@angular/router';
 import { LetterManagementService } from '../services/letter-management.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
-
+import {EditAddressComponent} from '../../../../../ui-components/src/lib/components/ui3/edit-address/edit-address.component';
 @Component({
   selector: 'digex-task-create-new-letter',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, SlideToggleComponent, ButtonComponent, MatInputModule, InputSingleLineComponent, InputTextareaDashedComponent, InputTextareaComponent, FormsModule],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, SlideToggleComponent, ButtonComponent, MatInputModule, InputSingleLineComponent, InputTextareaDashedComponent, InputTextareaComponent, FormsModule, EditAddressComponent],
   templateUrl: './create-new-letter.component.html',
   styleUrl: './create-new-letter.component.css',
 })
@@ -41,7 +43,7 @@ export class CreateNewLetterComponent implements OnInit{
   myButtonText: string="Save";
 
   dashedAreaContent: string[]=["Sender Name", "Sender Address"];
-  constructor(private router: Router,private letterManagementService: LetterManagementService,private fb: FormBuilder) {
+  constructor(private router: Router,private letterManagementService: LetterManagementService,private fb: FormBuilder, private dialog: MatDialog) {
   }
 
 
@@ -68,4 +70,10 @@ export class CreateNewLetterComponent implements OnInit{
     console.log('Form submitted:', this.formData);
     // Add your form submission logic here
   }
+  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(EditAddressComponent, {
+      width: '600px',
+    });
+}
 }

@@ -13,7 +13,7 @@ type Story = StoryObj<EditAddressComponent>;
 
 export const Primary: Story = {
   args: {
-    
+    cardTitel: 'Edit receiver address',
   },
 };
 
