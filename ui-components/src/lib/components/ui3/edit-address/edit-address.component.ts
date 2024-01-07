@@ -66,6 +66,9 @@ export class EditAddressComponent{
   onCancelClick(): void {
     this.dialogRef.close(); 
   }
+  onApplyClick(){
+    console.log(this.items.controls)
+  }
 
   
   
