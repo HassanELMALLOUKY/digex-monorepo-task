@@ -27,46 +27,51 @@
       </div>
     </div>
     <div class="form-container">
-      <form *ngIf="!isOnPreview; else previewMode">
-        <div class="row">
-          <div class="form-group">
-            <digex-task-input-single-line [label]="'Sender Address'" (dataChanged)="handleDataChange('senderAddress',$event)"></digex-task-input-single-line>
+      @if(!isOnPreview){
+        <form>
+          <div class="row">
+            <div class="form-group">
+              <digex-task-input-single-line [label]="'Sender Address'" (dataChanged)="handleDataChange('senderAddress',$event)"></digex-task-input-single-line>
+            </div>
           </div>
-        </div>
-        <div class="row mb-2" (click)="openDialog()">
-          <div class="form-group" >
-            <digex-task-input-textarea-dashed [label]="'Receiver Address'" [content]="receiverAddress" (dataChanged)="handleDataChange('receiverAddress',$event)"></digex-task-input-textarea-dashed>
+          <div class="row mb-2" (click)="openDialog()">
+            <div class="form-group" >
+              <digex-task-input-textarea-dashed [label]="'Receiver Address'" [content]="receiverAddress" (dataChanged)="handleDataChange('receiverAddress',$event)"></digex-task-input-textarea-dashed>
+            </div>
           </div>
-        </div>
-        <div class="row mb-5">
-          <div class="form-group">
-            <digex-task-input-textarea-dashed [label]="'Block A'" [content]="blockA" (dataChanged)="handleDataChange('blockA',$event)"></digex-task-input-textarea-dashed>
+          <div class="row mb-5">
+            <div class="form-group">
+              <digex-task-input-textarea-dashed [label]="'Block A'" [content]="blockA" (dataChanged)="handleDataChange('blockA',$event)"></digex-task-input-textarea-dashed>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <digex-task-input-single-line [label]="'Subject (optional)'"  (dataChanged)="handleDataChange('subject',$event)"></digex-task-input-single-line>
+          <div class="row">
+            <div class="form-group">
+              <digex-task-input-single-line [label]="'Subject (optional)'"  (dataChanged)="handleDataChange('subject',$event)"></digex-task-input-single-line>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <digex-task-input-textarea label="Body" (dataChanged)="handleDataChange('body',$event)"></digex-task-input-textarea>
+          <div class="row">
+            <div class="form-group">
+              <digex-task-input-textarea label="Body" (dataChanged)="handleDataChange('body',$event)"></digex-task-input-textarea>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <digex-task-input-single-line [label]="'Footnote (optional)'" (dataChanged)="handleDataChange('footNote',$event)"></digex-task-input-single-line>
+          <div class="row">
+            <div class="form-group">
+              <digex-task-input-single-line [label]="'Footnote (optional)'" (dataChanged)="handleDataChange('footNote',$event)"></digex-task-input-single-line>
+            </div>
           </div>
+        </form>
+      } @else {
+        <div>
+          <p style="font-size: small"><u>{{inputData['senderAddress']}}</u></p>
+          <div [innerHtml]="inputData['receiverAddress'].join('<br/>')"></div> <br><br>
+          <div [innerHtml]="inputData['blockA'].join('<br/>')"></div><br><br>
+          <p style="font-weight: bold">{{inputData['subject']}}</p>
+          <p>{{inputData['body']}}</p>
+          <p>{{inputData['footNote']}}</p>
         </div>
-      </form>
-      <ng-template #previewMode>
-        <p style="font-size: small"><u>{{inputData['senderAddress']}}</u></p>
-        <div [innerHtml]="inputData['receiverAddress'].join('<br/>')"></div> <br><br>
-        <div [innerHtml]="inputData['blockA'].join('<br/>')"></div><br><br>
-        <p style="font-weight: bold">{{inputData['subject']}}</p>
-        <p>{{inputData['body']}}</p>
-        <p>{{inputData['footNote']}}</p>
-      </ng-template>
+      }
+
+
 
     </div>
   </div>

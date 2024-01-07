@@ -8,8 +8,17 @@ import { FormsModule } from '@angular/forms';
   selector: 'digex-task-input-textarea',
   standalone: true,
   imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule],
-  templateUrl: './input-textarea.component.html',
-  styleUrl: './input-textarea.component.css',
+  template: `
+    <mat-form-field appearance="outline" [style.width.%]="50">
+      <mat-label>{{ label }}</mat-label>
+      <textarea [(ngModel)]="inputValue" (input)="onInput()" matInput></textarea>
+    </mat-form-field>
+  `,
+  styles: `
+  textarea{
+  resize: none;
+}
+  `,
 })
 export class InputTextareaComponent {
   @Input() label:string="Label";

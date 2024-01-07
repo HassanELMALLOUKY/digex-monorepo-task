@@ -6,7 +6,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   selector: 'digex-task-slide-toggle',
   standalone: true,
   imports: [CommonModule, MatSlideToggleModule],
-  templateUrl: './slide-toggle.component.html',
-  styleUrl: './slide-toggle.component.css',
+  template: `
+    <mat-slide-toggle>Preview Mode</mat-slide-toggle>
+  `,
+  styles: ``,
 })
 export class SlideToggleComponent {}

@@ -11,12 +11,17 @@
     </div>
     <button (click)="resetLetters()">Reset</button>
   </div>
-  <div *ngIf="letters?.length!=0" class="row">
-    <div class="col-3" style="margin-left: 5px" *ngFor="let letter of letters">
-      <digex-task-card [count]="letter.id" [first_line]="letter.receiverAddress.toString()" [Subject]="letter.subject" ></digex-task-card>
+  @if(letters.length!=0){
+    <div class="row">
+      @for (letter of letters; track letter.id){
+        <div class="col-3" style="margin-left: 5px">
+          <digex-task-card [count]="letter.id" [first_line]="letter.receiverAddress.toString()" [Subject]="letter.subject" ></digex-task-card>
+        </div>
+      }
     </div>
+  }
+  <div></div>
 
-  </div>
 </div>
 <router-outlet></router-outlet>
 

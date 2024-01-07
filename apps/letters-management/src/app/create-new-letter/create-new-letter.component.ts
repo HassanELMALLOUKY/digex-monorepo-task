@@ -53,7 +53,7 @@ export class CreateNewLetterComponent implements OnInit{
 
   ngOnInit(): void {
     this.letterCount = this.letterManagementService.getAllLetters().reduce((max, letter) => (letter.id > max ? letter.id : max), 0);
-    /*this.letterManagementService.saveLetter({
+    this.letterManagementService.saveLetter({
       id: 1,
       senderAddress: "Company GmbH, Musterstraße 10, 12345 Musterstadt",
       receiverAddress: ["Test GmbH","Wallstraße 8, Frankfurt","GERMANY"],
@@ -61,7 +61,7 @@ export class CreateNewLetterComponent implements OnInit{
       subject: "This is an example subject line",
       body: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
       footnote: ""
-    });*/
+    });
     //console.log("Letter saved!", this.letterManagementService.getLetter("1"));
   }
 

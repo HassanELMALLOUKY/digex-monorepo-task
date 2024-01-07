@@ -6,7 +6,12 @@ import { FormsModule } from '@angular/forms';
   selector: 'digex-task-input-textarea-dashed',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './input-textarea-dashed.component.html',
+  template: `
+    <div class="custom-textarea" [style.width.%]="50">
+      <label>{{ label }}</label>
+      <textarea [(ngModel)]="inputValue" (input)="onInput()" placeholder="">{{ content.join("\\n") }}</textarea>
+    </div>
+  `,
   styleUrl: './input-textarea-dashed.component.css',
 })
 export class InputTextareaDashedComponent {

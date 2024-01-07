@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { LetterManagementService } from './services/letter-management.service';
 import { LetterModel } from './models/letter-model';
+import { of } from 'rxjs';
 @Component({
   standalone: true,
   imports: [NxWelcomeComponent,
@@ -49,4 +50,6 @@ export class AppComponent  implements OnInit{
   resetLetters() {
     localStorage.clear();
   }
+
+  protected readonly of = of;
 }
