@@ -3,7 +3,7 @@ import { LetterModel } from '../../models/letter-model';
 
 export function mapJsonToLetterModel(json: any): LetterModel {
   return new LetterModel(
-    Math.floor(Math.random() * 1000000),
+    0,
     json.senderAddress,
     json.receiverAddress,
     json.blockA,

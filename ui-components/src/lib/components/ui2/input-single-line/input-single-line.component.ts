@@ -7,8 +7,13 @@ import { FormsModule } from '@angular/forms';
   selector: 'digex-task-input-single-line',
   standalone: true,
   imports: [CommonModule, MatInputModule, FormsModule],
-  templateUrl: './input-single-line.component.html',
-  styleUrl: './input-single-line.component.css',
+  template: `
+    <mat-form-field appearance="outline" [style.width.%]="50">
+      <mat-label >{{ label }}</mat-label>
+      <input matInput placeholder="{{label}}"  id="{{label}}" [(ngModel)]="inputValue" (input)="onInput()">
+    </mat-form-field>
+  `,
+  styles: ``,
 })
 export class InputSingleLineComponent {
   @Input() label:string="Label";
