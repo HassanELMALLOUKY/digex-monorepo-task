@@ -36,12 +36,12 @@
           </div>
           <div class="row mb-2" (click)="openDialog()">
             <div class="form-group" >
-              <digex-task-input-textarea-dashed [label]="'Receiver Address'" [content]="receiverAddress" (dataChanged)="handleDataChange('receiverAddress',$event)"></digex-task-input-textarea-dashed>
+              <digex-task-input-textarea-dashed [label]="'Receiver Address'" [numberOfRows]="3" [inputValue]="letterManagementService.editAddressData" (dataChanged)="handleDataChange('receiverAddress',$event)"></digex-task-input-textarea-dashed>
             </div>
           </div>
           <div class="row mb-5">
             <div class="form-group">
-              <digex-task-input-textarea-dashed [label]="'Block A'" [content]="blockA" (dataChanged)="handleDataChange('blockA',$event)"></digex-task-input-textarea-dashed>
+              <digex-task-input-textarea-dashed [label]="'Block A'" [numberOfRows]="2"  [inputValue]="['hi','hello']" (dataChanged)="handleDataChange('blockA',$event)"></digex-task-input-textarea-dashed>
             </div>
           </div>
           <div class="row">

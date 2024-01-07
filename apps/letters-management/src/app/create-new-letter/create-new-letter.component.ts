@@ -34,11 +34,13 @@ import { mapJsonToLetterModel, mapLetterModelToJson } from '../services/mapper/l
 export class CreateNewLetterComponent implements OnInit{
   inputData: { [key: string]: any } = {};
   letterCount: number = 0;
-  receiverAddress: string[]=["Receiver Address","Receiver Address","Receiver Address"];
+  receiverAddress: string[]=["hello","sir","hhhhh"];
   blockA: string[]=["Block A", "Block A"];
   myButtonText: string="Save";
   isOnPreview: boolean=false;
-  constructor(private router: Router,private letterManagementService: LetterManagementService,private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private router: Router, protected letterManagementService: LetterManagementService,
+              private fb: FormBuilder, private dialog: MatDialog,)
+  {
   }
 
 
@@ -62,7 +64,6 @@ export class CreateNewLetterComponent implements OnInit{
       body: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
       footnote: ""
     });
-    //console.log("Letter saved!", this.letterManagementService.getLetter("1"));
   }
 
   onSubmit(): void {
@@ -71,17 +72,21 @@ export class CreateNewLetterComponent implements OnInit{
   }
 
   openDialog(): void {
+
     const dialogRef = this.dialog.open(EditAddressComponent, {
       width: '600px',
-      data: { cardTitel: "Edit receiver address" }
+      data: { cardTitel: "Edit receiver address", content:this.letterManagementService.mapToString(this.letterManagementService.editAddressData) }
     });
 }
+
 // handle the output from the input component
-  handleDataChange(key:string,data: string) {
+  handleDataChange(key:string,data: any) {
     this.inputData[key] = data;
+    console.log("received data form Dialog",this.letterManagementService.editAddressData);
   }
   onPreview():void{
     this.inputData=mapLetterModelToJson(this.letterManagementService.getLetter("1"));
     this.isOnPreview=!this.isOnPreview;
   }
+
 }

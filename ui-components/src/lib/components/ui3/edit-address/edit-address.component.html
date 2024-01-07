@@ -8,17 +8,24 @@
     <!-- Your form content -->
     <form [formGroup]="form">
       <div formArrayName="items">
-        <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" style="width: 100%;">
+        @if(data.content.length!=0){
+          @for (itemContent of data.content;track itemContent){
+            <mat-form-field appearance="outline" style="width: 90%;">
+              <mat-label>Line {{ $index + 1 }}</mat-label>
+              <input matInput placeholder="Line" type="text" formControlName="line" value="{{itemContent}}">
+            </mat-form-field>
+          }
+        } @else {
+          <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" style="width: 100%;">
+            <mat-form-field appearance="outline" style="width: 90%;">
+              <mat-label>Line {{ i + 1 }}</mat-label>
+              <input matInput placeholder="Line" type="text" formControlName="line">
+            </mat-form-field>
 
+            <mat-icon (click)="removeLine(i)" style="color: red; margin-left: 10px;">delete_forever</mat-icon>
+          </div>
+        }
 
-
-          <mat-form-field appearance="outline" style="width: 90%;">
-            <mat-label>Line {{ i + 1 }}</mat-label>
-            <input matInput placeholder="Line" type="text" formControlName="line">
-          </mat-form-field>
-
-          <mat-icon (click)="removeLine(i)" style="color: red; margin-left: 10px;">delete_forever</mat-icon>
-        </div>
 
       </div>
       <a class="add-line" (click)="addLine()">
@@ -34,13 +41,13 @@
           </div>
       <mat-divider></mat-divider>
 
-      
+
     </form>
     <div class="row justify-content-end mt-8">
       <div class="col-auto">
         <mat-dialog-actions class="button-container">
           <button mat-button color="primary" (click)="onCancelClick()">CANCEL</button>
-          <div><digex-task-button [color]="'primary'" [buttonText]="'APPLY'" ></digex-task-button></div>
+          <div><digex-task-button [color]="'primary'" [buttonText]="'APPLY'" (click)="displayInConsole()"></digex-task-button></div>
         </mat-dialog-actions>
       </div>
     </div>
