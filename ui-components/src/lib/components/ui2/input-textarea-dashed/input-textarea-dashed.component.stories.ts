@@ -14,6 +14,6 @@ type Story = StoryObj<InputTextareaDashedComponent>;
 export const Primary: Story = {
   args: {
     label:"Label",
-    content:["item1","item2","item3"]
+    inputValue: [],
   },
 };

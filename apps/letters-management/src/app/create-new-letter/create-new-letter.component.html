@@ -39,9 +39,9 @@
               <digex-task-input-textarea-dashed [label]="'Receiver Address'" [numberOfRows]="3" [inputValue]="letterManagementService.editAddressData" (dataChanged)="handleDataChange('receiverAddress',$event)"></digex-task-input-textarea-dashed>
             </div>
           </div>
-          <div class="row mb-5">
+          <div class="row mb-5" (click)="openContactPerson()">
             <div class="form-group">
-              <digex-task-input-textarea-dashed [label]="'Block A'" [numberOfRows]="2"  [inputValue]="['hi','hello']" (dataChanged)="handleDataChange('blockA',$event)"></digex-task-input-textarea-dashed>
+              <digex-task-input-textarea-dashed [label]="'Contact Person'" [numberOfRows]="2"  [inputValue]="['hi','hello']" (dataChanged)="handleDataChange('blockA',$event)"></digex-task-input-textarea-dashed>
             </div>
           </div>
           <div class="row">

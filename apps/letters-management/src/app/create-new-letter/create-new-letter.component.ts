@@ -22,12 +22,19 @@ import {
 import { Router } from '@angular/router';
 import { LetterManagementService } from '../services/letter-management.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
-import {EditAddressComponent} from '../../../../../ui-components/src/lib/components/ui3/edit-address/edit-address.component';
+import {
+  EditAddressComponent,
+  InputType
+} from '../../../../../ui-components/src/lib/components/ui3/edit-address/edit-address.component';
 import { mapJsonToLetterModel, mapLetterModelToJson } from '../services/mapper/letter-mapper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @Component({
   selector: 'digex-task-create-new-letter',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, SlideToggleComponent, ButtonComponent, MatInputModule, InputSingleLineComponent, InputTextareaDashedComponent, InputTextareaComponent, FormsModule, EditAddressComponent],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, SlideToggleComponent, ButtonComponent,
+            MatInputModule, InputSingleLineComponent, InputTextareaDashedComponent, InputTextareaComponent, FormsModule,
+            EditAddressComponent],
   templateUrl: './create-new-letter.component.html',
   styleUrl: './create-new-letter.component.css',
 })
@@ -75,7 +82,11 @@ export class CreateNewLetterComponent implements OnInit{
 
     const dialogRef = this.dialog.open(EditAddressComponent, {
       width: '600px',
-      data: { cardTitel: "Edit receiver address", content:this.letterManagementService.mapToString(this.letterManagementService.editAddressData) }
+      data: {
+        cardTitel: "Edit receiver address",
+        content:this.letterManagementService.mapToString(this.letterManagementService.editAddressData),
+        inputType: InputType.SIMPLE
+      }
     });
 }
 
@@ -89,4 +100,12 @@ export class CreateNewLetterComponent implements OnInit{
     this.isOnPreview=!this.isOnPreview;
   }
 
+  openContactPerson() {
+    const dialogRef = this.dialog.open(EditAddressComponent, {
+      width: '600px',
+      data: { cardTitel: "Edit contact person", content:this.letterManagementService.mapToString(this.letterManagementService.editAddressData),
+        inputType: InputType.DATE
+      }
+    });
+  }
 }

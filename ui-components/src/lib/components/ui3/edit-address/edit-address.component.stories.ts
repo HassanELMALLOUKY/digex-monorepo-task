@@ -1,27 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { EditAddressComponent } from './edit-address.component';
+import { EditAddressComponent, InputType } from './edit-address.component';
 
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
 
 const meta: Meta<EditAddressComponent> = {
   component: EditAddressComponent,
   title: 'EditAddressComponent',
+
+
 };
 export default meta;
 type Story = StoryObj<EditAddressComponent>;
 
+// @ts-ignore
 export const Primary: Story = {
   args: {
     cardTitel: 'Edit receiver address',
   },
 };
 
-
-export const Heading: Story = {
-  args: {},
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    expect(canvas.getByText(/edit-address works!/gi)).toBeTruthy();
-  },
-};

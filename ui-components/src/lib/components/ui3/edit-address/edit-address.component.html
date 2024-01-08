@@ -10,17 +10,39 @@
       <div formArrayName="items">
         @if(data.content.length!=0){
           @for (itemContent of data.content;track itemContent){
-            <mat-form-field appearance="outline" style="width: 90%;">
-              <mat-label>Line {{ $index + 1 }}</mat-label>
-              <input matInput placeholder="Line" type="text" formControlName="line" value="{{itemContent}}">
-            </mat-form-field>
+            @if(data.inputType==InputType.SIMPLE){
+              <mat-form-field appearance="outline" style="width: 90%;">
+                <mat-label>Line {{ $index + 1 }}</mat-label>
+                <input matInput placeholder="Line" type="text" formControlName="line" value="{{itemContent}}">
+              </mat-form-field>
+            } @else if(data.inputType == InputType.DATE && $index == 0){
+              <mat-form-field style="width: 90%;">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+            }
+
           }
         } @else {
           <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" style="width: 100%;">
-            <mat-form-field appearance="outline" style="width: 90%;">
-              <mat-label>Line {{ i + 1 }}</mat-label>
-              <input matInput placeholder="Line" type="text" formControlName="line">
-            </mat-form-field>
+            @if (data.inputType==InputType.SIMPLE || i>0){
+              <mat-form-field appearance="outline" style="width: 90%;">
+                <mat-label>Line {{ i + 1 }}</mat-label>
+                <input matInput placeholder="Line" type="text" formControlName="line">
+              </mat-form-field>
+            } @else if(data.inputType == InputType.DATE && i == 0){
+              <mat-form-field style="width: 90%;">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="line">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker (change)="onDateSelected($event)"></mat-datepicker>
+              </mat-form-field>
+            }
 
             <mat-icon (click)="removeLine(i)" style="color: red; margin-left: 10px;">delete_forever</mat-icon>
           </div>
