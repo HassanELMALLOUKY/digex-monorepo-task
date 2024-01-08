@@ -10,7 +10,7 @@
       <div formArrayName="items">
         @if(data.content.length!=0){
           @for (itemContent of data.content;track itemContent){
-            @if(data.inputType==InputType.SIMPLE){
+            @if(data.inputType==InputType.SIMPLE || $index >0){
               <mat-form-field appearance="outline" style="width: 90%;">
                 <mat-label>Line {{ $index + 1 }}</mat-label>
                 <input matInput placeholder="Line" type="text" formControlName="line" value="{{itemContent}}">
@@ -19,7 +19,6 @@
               <mat-form-field style="width: 90%;">
                 <mat-label>Choose a date</mat-label>
                 <input matInput [matDatepicker]="picker">
-                <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -38,7 +37,6 @@
               <mat-form-field style="width: 90%;">
                 <mat-label>Choose a date</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="line">
-                <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -58,7 +56,11 @@
           <div>
             <p class="font-weight-bold-preview">Preview</p>
             <div *ngFor="let item of items.controls; let i = index">
-              <p class="item-preview">{{ item.get('line')?.value }}</p>
+              @if (i==0){
+                <p class="item-preview">{{ item.get('line')?.value | date: 'dd.MM.yyyy' }}</p>
+              } @else {
+                <p class="item-preview">{{ item.get('line')?.value }}</p>
+              }
             </div>
           </div>
       <mat-divider></mat-divider>
