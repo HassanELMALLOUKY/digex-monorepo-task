@@ -6,6 +6,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LetterManagementService {
+  editAddressData:string[]=[];
+  contactPersonInfo:any[]=[];
   private dataSubject = new BehaviorSubject<any>(this.getAllLetters());
   data$ = this.dataSubject.asObservable();
   constructor() { }
@@ -30,5 +32,8 @@ export class LetterManagementService {
       letters.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
     }
     return letters;
+  }
+  mapToString(data: any[]): string[] {
+    return data.map(item => item['line']);
   }
 }

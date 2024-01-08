@@ -8,17 +8,44 @@
     <!-- Your form content -->
     <form [formGroup]="form">
       <div formArrayName="items">
-        <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" style="width: 100%;">
+        @if(data.content.length!=0){
+          @for (itemContent of data.content;track itemContent){
+            @if(data.inputType==InputType.SIMPLE  || $index>0){
+              <mat-form-field appearance="outline" style="width: 90%;">
+                <mat-label>Line {{ $index + 1 }}</mat-label>
+                <input matInput placeholder="Line" type="text" formControlName="line" value="{{itemContent}}">
+              </mat-form-field>
+            } @else if(data.inputType == InputType.DATE && $index == 0){
+              <mat-form-field style="width: 90%;">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
 
+            }
 
+          }
+        } @else {
+          <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" style="width: 100%;">
+            @if (data.inputType==InputType.SIMPLE || i>0){
+              <mat-form-field appearance="outline" style="width: 90%;">
+                <mat-label>Line {{ i + 1 }}</mat-label>
+                <input matInput placeholder="Line" type="text" formControlName="line">
+              </mat-form-field>
+            } @else if(data.inputType == InputType.DATE && i == 0){
+              <mat-form-field style="width: 90%;">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="line">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            }
 
-          <mat-form-field appearance="outline" style="width: 90%;">
-            <mat-label>Line {{ i + 1 }}</mat-label>
-            <input matInput placeholder="Line" type="text" formControlName="line">
-          </mat-form-field>
+            <mat-icon (click)="removeLine(i)" style="color: red; margin-left: 10px;">delete_forever</mat-icon>
+          </div>
+        }
 
-          <mat-icon (click)="removeLine(i)" style="color: red; margin-left: 10px;">delete_forever</mat-icon>
-        </div>
 
       </div>
       <a class="add-line" (click)="addLine()">
@@ -29,18 +56,22 @@
           <div>
             <p class="font-weight-bold-preview">Preview</p>
             <div *ngFor="let item of items.controls; let i = index">
-              <p class="item-preview">{{ item.get('line')?.value }}</p>
+              @if (i==0){
+                <p class="item-preview">{{ item.get('line')?.value | date: 'dd.MM.yyyy' }}</p>
+              } @else {
+                <p class="item-preview">{{ item.get('line')?.value }}</p>
+              }
             </div>
           </div>
       <mat-divider></mat-divider>
 
-      
+
     </form>
     <div class="row justify-content-end mt-8">
       <div class="col-auto">
         <mat-dialog-actions class="button-container">
           <button mat-button color="primary" (click)="onCancelClick()">CANCEL</button>
-          <div><digex-task-button [color]="'primary'" [buttonText]="'APPLY'" (click)="onApplyClick()"></digex-task-button></div>
+          <div><digex-task-button [color]="'primary'" [buttonText]="'APPLY'" (click)="displayInConsole()"></digex-task-button></div>
         </mat-dialog-actions>
       </div>
     </div>
