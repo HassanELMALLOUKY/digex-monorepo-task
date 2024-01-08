@@ -56,7 +56,11 @@
           <div>
             <p class="font-weight-bold-preview">Preview</p>
             <div *ngFor="let item of items.controls; let i = index">
-              <p class="item-preview">{{ item.get('line')?.value }}</p>
+              @if (i==0){
+                <p class="item-preview">{{ item.get('line')?.value | date: 'dd.MM.yyyy' }}</p>
+              } @else {
+                <p class="item-preview">{{ item.get('line')?.value }}</p>
+              }
             </div>
           </div>
       <mat-divider></mat-divider>

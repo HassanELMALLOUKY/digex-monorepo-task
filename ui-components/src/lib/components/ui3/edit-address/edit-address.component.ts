@@ -114,6 +114,8 @@ export class EditAddressComponent implements OnInit{
 
   ngOnInit(): void {
     console.log("inputType: ",this.data.inputType);
+    console.log("content: ",this.data.content);
+    //this.items.controls=this.data.content;
   }
 }
 

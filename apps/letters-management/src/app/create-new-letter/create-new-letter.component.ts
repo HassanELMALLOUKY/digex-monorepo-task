@@ -93,7 +93,7 @@ export class CreateNewLetterComponent implements OnInit{
   openContactPerson() {
     const dialogRef = this.dialog.open(EditAddressComponent, {
       width: '600px',
-      data: { cardTitel: "Edit contact person", content:this.letterManagementService.mapToString(this.letterManagementService.editAddressData),
+      data: { cardTitel: "Edit contact person", content:this.letterManagementService.mapToString(this.letterManagementService.contactPersonInfo),
         inputType: InputType.DATE
       }
     });
