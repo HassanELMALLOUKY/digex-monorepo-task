@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,6 +37,7 @@ import { MatNativeDateModule } from '@angular/material/core';
             EditAddressComponent],
   templateUrl: './create-new-letter.component.html',
   styleUrl: './create-new-letter.component.css',
+  providers:[DatePipe]
 })
 export class CreateNewLetterComponent implements OnInit{
   inputData: { [key: string]: any } = {};
@@ -89,7 +90,14 @@ export class CreateNewLetterComponent implements OnInit{
       }
     });
 }
-
+  openContactPerson() {
+    const dialogRef = this.dialog.open(EditAddressComponent, {
+      width: '600px',
+      data: { cardTitel: "Edit contact person", content:this.letterManagementService.mapToString(this.letterManagementService.editAddressData),
+        inputType: InputType.DATE
+      }
+    });
+  }
 // handle the output from the input component
   handleDataChange(key:string,data: any) {
     this.inputData[key] = data;
@@ -100,12 +108,5 @@ export class CreateNewLetterComponent implements OnInit{
     this.isOnPreview=!this.isOnPreview;
   }
 
-  openContactPerson() {
-    const dialogRef = this.dialog.open(EditAddressComponent, {
-      width: '600px',
-      data: { cardTitel: "Edit contact person", content:this.letterManagementService.mapToString(this.letterManagementService.editAddressData),
-        inputType: InputType.DATE
-      }
-    });
-  }
+
 }

@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LetterManagementService {
   editAddressData:string[]=[];
+  contactPersonInfo:string[]=[];
   private dataSubject = new BehaviorSubject<any>(this.getAllLetters());
   data$ = this.dataSubject.asObservable();
   constructor() { }

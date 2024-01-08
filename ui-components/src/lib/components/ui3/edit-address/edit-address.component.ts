@@ -1,5 +1,5 @@
 import { Component, Input, Inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormArray, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -53,10 +53,9 @@ export class EditAddressComponent implements OnInit{
   protected readonly InputType = InputType;
   form: FormGroup;
   @Input() cardTitel:string = " Edit receiver address";
-  selectedDate!: Date;
   constructor(public dialogRef: MatDialogRef<EditAddressComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private fb: FormBuilder,
-              private letterService: LetterManagementService,
+              private letterService: LetterManagementService
               )
     {
       this.form = this.fb.group({
@@ -87,8 +86,23 @@ export class EditAddressComponent implements OnInit{
 
   displayInConsole() {
    // console.log("get items: ",this.items.value as Array<string>)
-    this.letterService.editAddressData= this.items.value as Array<string>;
-    console.log("get items: ",this.letterService.editAddressData);
+    if(this.data.inputType === InputType.DATE){
+      let originalDate = new Date((this.items.value as Array<any>)[0].line);
+      let formatedDate=originalDate.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }).replace(/\//g, '.')
+      this.letterService.contactPersonInfo.push("Date: "+formatedDate);
+      (this.items.value as Array<string>).slice(1,this.items.value.length).forEach((item) => {
+        this.letterService.contactPersonInfo.push(item);
+      });
+      console.log("contact info ",this.letterService.contactPersonInfo);
+    }
+    else {
+      this.letterService.editAddressData= this.items.value as Array<string>;
+      console.log("get items: ",this.letterService.editAddressData);
+    }
     this.dialogRef.close();
   }
 
@@ -96,9 +110,6 @@ export class EditAddressComponent implements OnInit{
 
   ngOnInit(): void {
     console.log("inputType: ",this.data.inputType);
-  }
-  onDateSelected(event: any) {
-    console.log("event: ",event.value);
   }
 }
 
