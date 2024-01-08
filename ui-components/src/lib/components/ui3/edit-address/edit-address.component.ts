@@ -87,13 +87,14 @@ export class EditAddressComponent implements OnInit{
   displayInConsole() {
    // console.log("get items: ",this.items.value as Array<string>)
     if(this.data.inputType === InputType.DATE){
+      this.letterService.contactPersonInfo=[];
       let originalDate = new Date((this.items.value as Array<any>)[0].line);
       let formatedDate=originalDate.toLocaleDateString('en-GB', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
       }).replace(/\//g, '.')
-      this.letterService.contactPersonInfo.push("Date: "+formatedDate);
+      this.letterService.contactPersonInfo.push({"line":"Date: "+formatedDate});
       (this.items.value as Array<string>).slice(1,this.items.value.length).forEach((item) => {
         this.letterService.contactPersonInfo.push(item);
       });
@@ -104,6 +105,7 @@ export class EditAddressComponent implements OnInit{
       console.log("get items: ",this.letterService.editAddressData);
     }
     this.dialogRef.close();
+
   }
 
 

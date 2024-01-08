@@ -20,7 +20,7 @@ import { ArrayToStringPipe } from '../../../../../../apps/letters-management/src
 export class InputTextareaDashedComponent {
   @Input() label="";
   @Input() numberOfRows!:number;
-  @Input() inputValue:any[] = [];
+  @Input() inputValue:string[] = [];
 
   @Output() dataChanged = new EventEmitter<any[]>();
 
