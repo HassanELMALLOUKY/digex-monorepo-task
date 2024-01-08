@@ -1,5 +1,5 @@
 import { Component, Input, Inject, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -85,11 +85,13 @@ export class EditAddressComponent implements OnInit{
 
 
   displayInConsole() {
+
    // console.log("get items: ",this.items.value as Array<string>)
     if(this.data.inputType === InputType.DATE){
       this.letterService.contactPersonInfo=[];
-      let originalDate = new Date((this.items.value as Array<any>)[0].line);
-      let formatedDate=originalDate.toLocaleDateString('en-GB', {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const originalDate = new Date((this.items.value as Array<any>)[0].line);
+      const formatedDate=originalDate.toLocaleDateString('en-GB', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
