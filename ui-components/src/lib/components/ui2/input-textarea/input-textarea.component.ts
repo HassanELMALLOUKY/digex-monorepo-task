@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
 export class InputTextareaComponent {
   @Input() label:string="Label";
 
-  inputValue = '';
+  @Input() inputValue = '';
 
   @Output() dataChanged = new EventEmitter<string>();
 

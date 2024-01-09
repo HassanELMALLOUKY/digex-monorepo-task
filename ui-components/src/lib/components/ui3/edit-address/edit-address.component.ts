@@ -17,10 +17,12 @@ import {
   MatDialogRef,
   MatDialogContent
   } from '@angular/material/dialog';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   LetterManagementService
 } from '../../../../../../apps/letters-management/src/app/services/letter-management.service';
-import { ArrayToStringPipe } from '../../../../../../apps/letters-management/src/app/pipes/array-to-string.pipe';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { ArrayToStringPipe, ExtractLinePipe } from '../../../../../../apps/letters-management/src/app/pipes/array-to-string.pipe';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
@@ -28,8 +30,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 export interface DialogData {
   cardTitel: string;
-  content: [];
+  content: Array<string>;
   inputType: InputType;
+  forUpdate: boolean;
 }
 export enum InputType {
   SIMPLE = 'SIMPLE', DATE = 'DATE'
@@ -39,9 +42,8 @@ export enum InputType {
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatListModule, MatFormFieldModule, MatInputModule, MatIconModule, ReactiveFormsModule,
     MatDialogActions, MatDialogClose, MatDialogTitle, ButtonComponent, MatDialogContent, InputSingleLineComponent, ArrayToStringPipe, MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,ExtractLinePipe
   ],
-
   templateUrl: './edit-address.component.html',
   styleUrl: './edit-address.component.css',
   providers:[
@@ -61,6 +63,10 @@ export class EditAddressComponent implements OnInit{
       this.form = this.fb.group({
         items: this.fb.array([]),
       });
+    }
+
+    ngOnInit(): void {
+      console.log("items data ==>: ",this.items);
     }
 
 
@@ -84,9 +90,8 @@ export class EditAddressComponent implements OnInit{
   }
 
 
-  displayInConsole() {
-
-   // console.log("get items: ",this.items.value as Array<string>)
+  insertDialogData() {
+   console.log("items data ==>: ",this.items);
     if(this.data.inputType === InputType.DATE){
       this.letterService.contactPersonInfo=[];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -109,13 +114,12 @@ export class EditAddressComponent implements OnInit{
     this.dialogRef.close();
 
   }
-
-
-
-  ngOnInit(): void {
-    console.log("inputType: ",this.data.inputType);
-    console.log("content: ",this.data.content);
-    //this.items.controls=this.data.content;
+  updateDialogData() {
+    this.items.controls.forEach((item,index) => {
+      item.setValue(this.data.content[index]);
+    });
   }
+
+
 }
 

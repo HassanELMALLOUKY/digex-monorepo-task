@@ -15,7 +15,7 @@
     <div class="row">
       @for (letter of letters; track letter.id){
         <div class="col-3" style="margin-left: 5px">
-          <digex-task-card [count]="letter.id" [first_line]="letter.receiverAddress.toString()" [Subject]="letter.subject" ></digex-task-card>
+          <digex-task-card [count]="letter.id" [first_line]="letter.receiverAddress|firstLine" [Subject]="letter.subject" ></digex-task-card>
         </div>
       }
     </div>

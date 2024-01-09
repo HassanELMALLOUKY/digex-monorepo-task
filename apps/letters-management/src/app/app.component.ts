@@ -11,20 +11,19 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LetterManagementService } from './services/letter-management.service';
 import { LetterModel } from './models/letter-model';
 import { of } from 'rxjs';
+import { ArrayToStringPipe, FirstLinePipe } from "./pipes/array-to-string.pipe";
 @Component({
-  standalone: true,
-  imports: [NxWelcomeComponent,
-    RouterModule,
-    ButtonComponent,
-    MatButtonModule,
-    CardComponent,
-    MatIconModule, NgIf,
-    MatDialogModule
-
-  ],
-  selector: 'digex-task-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+    standalone: true,
+    selector: 'digex-task-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    imports: [NxWelcomeComponent,
+        RouterModule,
+        ButtonComponent,
+        MatButtonModule,
+        CardComponent,
+        MatIconModule, NgIf,
+        MatDialogModule, ArrayToStringPipe,FirstLinePipe]
 })
 export class AppComponent  implements OnInit{
   protected letters: LetterModel[]=[];
@@ -37,11 +36,10 @@ export class AppComponent  implements OnInit{
   buttonText: string="Create New Letter";
 
   ngOnInit(): void {
-    this.letterManagementService.data$.subscribe((data) => {
-      this.letters = data;
-      this.letterCount = this.letters.length;
+    this.letters = this.letterManagementService.getAllLetters();
+    this.letters.forEach(letter => {
+      console.log(letter);
     });
-    //this.letters = this.letterManagementService.getAllLetters();
   }
   isHome(): boolean {
     return this.location.path() === '';

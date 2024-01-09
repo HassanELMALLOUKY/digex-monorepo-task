@@ -20,7 +20,7 @@ export class InputSingleLineComponent {
   @Input() placeHolder:string="Write Something";
   @Input() value: string="";
 
-  inputValue = '';
+  @Input() inputValue = '';
 
   @Output() dataChanged = new EventEmitter<string>();
 

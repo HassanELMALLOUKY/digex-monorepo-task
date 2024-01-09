@@ -15,7 +15,7 @@
     <div class="col-3" style="margin-top: 7px">
       <digex-task-slide-toggle (click)="onPreview()" [style.margin-right.%]="35"></digex-task-slide-toggle>
       <span class="mb-4"></span>
-      <digex-task-button [buttonText]="myButtonText" (click)="onSubmit()" ></digex-task-button>
+      <digex-task-button [buttonText]="'Save'" (click)="onSubmit()" ></digex-task-button>
     </div>
 
   </div>
@@ -31,44 +31,46 @@
         <form>
           <div class="row">
             <div class="form-group">
-              <digex-task-input-single-line [label]="'Sender Address'" (dataChanged)="handleDataChange('senderAddress',$event)"></digex-task-input-single-line>
+              <digex-task-input-single-line [label]="'Sender Address'"  [inputValue]="inputData['senderAddress']" (dataChanged)="handleDataChange('senderAddress',$event)"></digex-task-input-single-line>
             </div>
           </div>
-          <div class="row mb-2" (click)="openDialog()">
+          <div class="row mb-2" (click)="openReceiveAddressDialog()">
             <div class="form-group" >
-              <digex-task-input-textarea-dashed [label]="'Receiver Address'" [numberOfRows]="3" [inputValue]="letterManagementService.editAddressData" (dataChanged)="handleDataChange('receiverAddress',$event)"></digex-task-input-textarea-dashed>
+              <digex-task-input-textarea-dashed [label]="'Receiver Address'" [numberOfRows]="3" [inputValue]="letterManagementService.editAddressData"></digex-task-input-textarea-dashed>
             </div>
           </div>
           <div class="row mb-5" (click)="openContactPerson()">
             <div class="form-group">
-              <digex-task-input-textarea-dashed [label]="'Contact Person'" [numberOfRows]="2"  [inputValue]="letterManagementService.contactPersonInfo" (dataChanged)="handleDataChange('blockA',$event)"></digex-task-input-textarea-dashed>
+              <digex-task-input-textarea-dashed [label]="'Contact Person'" [numberOfRows]="2"  [inputValue]="letterManagementService.contactPersonInfo"></digex-task-input-textarea-dashed>
             </div>
           </div>
           <div class="row">
             <div class="form-group">
-              <digex-task-input-single-line [label]="'Subject (optional)'"  (dataChanged)="handleDataChange('subject',$event)"></digex-task-input-single-line>
+              <digex-task-input-single-line [label]="'Subject (optional)'" [inputValue]="inputData['subject']"  (dataChanged)="handleDataChange('subject',$event)"></digex-task-input-single-line>
             </div>
           </div>
           <div class="row">
             <div class="form-group">
-              <digex-task-input-textarea label="Body" (dataChanged)="handleDataChange('body',$event)"></digex-task-input-textarea>
+              <digex-task-input-textarea label="Body" [inputValue]="inputData['body']"  (dataChanged)="handleDataChange('body',$event)"></digex-task-input-textarea>
             </div>
           </div>
           <div class="row">
             <div class="form-group">
-              <digex-task-input-single-line [label]="'Footnote (optional)'" (dataChanged)="handleDataChange('footNote',$event)"></digex-task-input-single-line>
+              <digex-task-input-single-line [label]="'Footnote (optional)'" [inputValue]="inputData['footNote']"  (dataChanged)="handleDataChange('footNote',$event)"></digex-task-input-single-line>
             </div>
           </div>
         </form>
       } @else {
         <div>
           <p style="font-size: small"><u>{{inputData['senderAddress']}}</u></p>
-          <div [innerHtml]="inputData['receiverAddress'].join('<br/>')"></div> <br><br>
-          <div [innerHtml]="inputData['blockA'].join('<br/>')"></div><br><br>
+          <p [innerHTML]="inputData['receiverAddress']|arrayToString:'<br>'"></p><br><br>
+          <p [innerHTML]="inputData['blockA']|arrayToString:'<br>'"></p><br><br>
+          <!--<p>{{inputData['receiverAddress']|arrayToString:"\n"}} </p>
+          <p>{{inputData['blockA']|arrayToString:"\n"}} </p><br><br>-->
           <p style="font-weight: bold">{{inputData['subject']}}</p>
           <p>{{inputData['body']}}</p>
           <p>{{inputData['footNote']}}</p>
-        </div>
+         </div>
       }
 
 
