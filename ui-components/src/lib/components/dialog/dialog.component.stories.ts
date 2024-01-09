@@ -13,8 +13,6 @@ type Story = StoryObj<DialogComponent>;
 
 export const Primary: Story = {
   args: {
-    lineData: [''],
-
   },
   }
 

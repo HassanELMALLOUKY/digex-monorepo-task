@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
@@ -6,10 +6,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { Form, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { ButtonComponent } from '../ui1/button/button.component';
 import { InputSingleLineComponent } from '../ui2/input-single-line/input-single-line.component';
 import { LetterManagementService } from 'apps/letters-management/src/app/services/letter-management.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { LineToString } from 'apps/letters-management/src/app/pipes/array-to-string.pipe';
 export interface DialogData {
   dialogTitle: string;
   inputType: InputType;
@@ -21,12 +24,14 @@ export enum InputType {
   selector: 'digex-task-dialog',
   standalone: true,
   imports: [CommonModule,MatButtonModule, MatListModule, MatFormFieldModule, MatInputModule, MatIconModule, ReactiveFormsModule,
-    MatDialogActions, MatDialogClose, MatDialogTitle, ButtonComponent, MatDialogContent, InputSingleLineComponent,],
+    MatDialogActions, MatDialogClose, MatDialogTitle, ButtonComponent, MatDialogContent, InputSingleLineComponent,MatDatepickerModule,
+    MatNativeDateModule, LineToString],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css',
 })
 export class DialogComponent implements OnInit {
-  constructor(private fb:FormBuilder,private letterService:LetterManagementService,public dialogRef: MatDialogRef<DialogComponent>) {}
+  protected readonly InputType = InputType;
+  constructor(private fb:FormBuilder,@Inject(MAT_DIALOG_DATA) public data: DialogData,private letterService:LetterManagementService,public dialogRef: MatDialogRef<DialogComponent>) {}
 
   ngOnInit(): void {
     if(this.letterService.editAddressData.length>0){
