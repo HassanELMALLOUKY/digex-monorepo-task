@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+  <div formArrayName="lines">
+    <div *ngFor="let line of lines.controls; let i = index" [formGroupName]="i">
+      <mat-form-field appearance="outline" style="width: 90%;">
+        <mat-label>Line {{ i + 1 }}</mat-label>
+        <input matInput formControlName="line" type="text"/>
+      </mat-form-field>
+      <mat-icon (click)="removeLine(i)" style="color: red; margin-left: 10px;">delete_forever</mat-icon>
+    </div>
+  </div>
+  <button type="button" mat-raised-button color="primary" (click)="addLine()">Add Line</button>
+</form>
+<p>Preview: <br> {{ form.value | json}}</p>
+<button type="button" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
+<button type="button" mat-raised-button color="primary" (click)="save()">Save</button>
+
+

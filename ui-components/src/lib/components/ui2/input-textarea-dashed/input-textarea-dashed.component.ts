@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
 import { ArrayToStringPipe } from '../../../../../../apps/letters-management/src/app/pipes/array-to-string.pipe';
+import { LetterManagementService } from 'apps/letters-management/src/app/services/letter-management.service';
 
 @Component({
   selector: 'digex-task-input-textarea-dashed',
@@ -12,19 +13,14 @@ import { ArrayToStringPipe } from '../../../../../../apps/letters-management/src
   template: `
     <div class="custom-textarea" [style.width.%]="50">
       <label>{{ label }}</label>
-      <textarea rows="{{numberOfRows}}">{{ inputValue | arrayToString }}</textarea>
+      <textarea rows="{{numberOfRows}}">{{ inputValue | arrayToString:'\n' }}</textarea>
     </div>
   `,
   styleUrl: './input-textarea-dashed.component.css',
 })
 export class InputTextareaDashedComponent {
+  constructor(private letterService:LetterManagementService) {}
   @Input() label="";
   @Input() numberOfRows!:number;
-  @Input() inputValue:string[] = [];
-
-  @Output() dataChanged = new EventEmitter<any[]>();
-
-  onInput() {
-    this.dataChanged.emit(this.inputValue);
-  }
+  @Input() inputValue!:string[];
 }

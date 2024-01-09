@@ -5,7 +5,39 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class ArrayToStringPipe implements PipeTransform {
-  transform(value: any[]): string {
-    return value.map(item => item['line']).join('\n');
+  transform(value: any[],param:string): string {
+    if (!value) return '';
+    return value.join(param);
   }
 }
+
+@Pipe({
+  name: 'firstLine',
+  standalone: true,
+})
+export class FirstLinePipe implements PipeTransform {
+  transform(value: any[]): string {
+    if (value && value.length > 0 && value[0].line) {
+      return value[0].line;
+    }
+    return '';
+  }
+}
+
+@Pipe({
+  name: 'extractLine',
+  standalone: true,
+})
+export class ExtractLinePipe implements PipeTransform {
+  transform(dataArray: any[]): string[] {
+    if (!dataArray || !dataArray.length) {
+      return [];
+    }
+
+    return dataArray.map(item => {
+      return item.line.line;
+    });
+  }
+}
+
+

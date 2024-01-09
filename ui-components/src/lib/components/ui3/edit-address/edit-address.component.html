@@ -9,11 +9,11 @@
     <form [formGroup]="form">
       <div formArrayName="items">
         @if(data.content.length!=0){
-          @for (itemContent of data.content;track itemContent){
+          @for (item of items.controls;track item){
             @if(data.inputType==InputType.SIMPLE || $index >0){
               <mat-form-field appearance="outline" style="width: 90%;">
                 <mat-label>Line {{ $index + 1 }}</mat-label>
-                <input matInput placeholder="Line" type="text" formControlName="line" value="{{itemContent}}">
+                <input matInput placeholder="Line" type="text" formControlName="line" value="{{item}}">
               </mat-form-field>
             } @else if(data.inputType == InputType.DATE && $index == 0){
               <mat-form-field style="width: 90%;">
@@ -31,7 +31,7 @@
             @if (data.inputType==InputType.SIMPLE || i>0){
               <mat-form-field appearance="outline" style="width: 90%;">
                 <mat-label>Line {{ i + 1 }}</mat-label>
-                <input matInput placeholder="Line" type="text" formControlName="line">
+                <input matInput placeholder="Line" type="text" formControlName="line" value="{{item}}">
               </mat-form-field>
             } @else if(data.inputType == InputType.DATE && i == 0){
               <mat-form-field style="width: 90%;">
@@ -55,14 +55,20 @@
       <mat-divider></mat-divider>
           <div>
             <p class="font-weight-bold-preview">Preview</p>
-            <div *ngFor="let item of items.controls; let i = index">
-              @if (i==0){
-                <p class="item-preview">{{ item.get('line')?.value | date: 'dd.MM.yyyy' }}</p>
-              } @else {
-                <p class="item-preview">{{ item.get('line')?.value }}</p>
+            @if (data.content.length==0) {
+              @for (item of items.controls; track $index) {
+                @if ($index==0 && data.inputType==InputType.DATE){
+                  <p class="item-preview">Date: {{ item.get('line')?.value | date:'MM.dd.YYYY' }}</p>
+                } @else {
+                  <p class="item-preview">{{ item.get('line')?.value }}</p>
+                }
               }
+            } @else {
+              @for (itemContent of items.value;track itemContent){
+                <p class="item-preview">{{itemContent.line.line}}</p>
+              }
+            }
             </div>
-          </div>
       <mat-divider></mat-divider>
 
 
@@ -71,7 +77,7 @@
       <div class="col-auto">
         <mat-dialog-actions class="button-container">
           <button mat-button color="primary" (click)="onCancelClick()">CANCEL</button>
-          <div><digex-task-button [color]="'primary'" [buttonText]="'APPLY'" (click)="displayInConsole()"></digex-task-button></div>
+          <div><digex-task-button [color]="'primary'" [buttonText]="'ADD'" (click)="insertDialogData()"></digex-task-button></div>
         </mat-dialog-actions>
       </div>
     </div>

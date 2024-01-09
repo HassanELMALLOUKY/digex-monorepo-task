@@ -8,8 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class LetterManagementService {
   editAddressData:string[]=[];
   contactPersonInfo:any[]=[];
-  private dataSubject = new BehaviorSubject<any>(this.getAllLetters());
-  data$ = this.dataSubject.asObservable();
+  
   constructor() { }
 
   public saveLetter(letterModel: LetterModel): void {
@@ -34,6 +33,7 @@ export class LetterManagementService {
     return letters;
   }
   mapToString(data: any[]): string[] {
-    return data.map(item => item['line']);
+    return data.map(item => item.line);
   }
+  
 }
