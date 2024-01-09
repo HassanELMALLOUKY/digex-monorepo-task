@@ -1,4 +1,4 @@
-import { Component, Input, Inject, OnInit } from '@angular/core';
+  import { Component, Input, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
@@ -17,9 +17,11 @@ import {
   MatDialogRef,
   MatDialogContent
   } from '@angular/material/dialog';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   LetterManagementService
 } from '../../../../../../apps/letters-management/src/app/services/letter-management.service';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ArrayToStringPipe } from '../../../../../../apps/letters-management/src/app/pipes/array-to-string.pipe';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -28,7 +30,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 export interface DialogData {
   cardTitel: string;
-  content: [];
+  content: Array<string>;
   inputType: InputType;
 }
 export enum InputType {
@@ -39,12 +41,14 @@ export enum InputType {
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatListModule, MatFormFieldModule, MatInputModule, MatIconModule, ReactiveFormsModule,
     MatDialogActions, MatDialogClose, MatDialogTitle, ButtonComponent, MatDialogContent, InputSingleLineComponent, ArrayToStringPipe, MatDatepickerModule,
-    MatNativeDateModule
-  ],
+    MatNativeDateModule ],
 
   templateUrl: './edit-address.component.html',
   styleUrl: './edit-address.component.css',
   providers:[
+    {provide: MatDialogRef , useValue:{} },
+
+    { provide: MAT_DIALOG_DATA, useValue: {} },
     MatDatepickerModule
   ]
 })
@@ -53,6 +57,7 @@ export class EditAddressComponent implements OnInit{
   protected readonly InputType = InputType;
   form: FormGroup;
   @Input() cardTitel:string = " Edit receiver address";
+  @Input() content: Array<string>=['dd','ff','vv'];
   constructor(public dialogRef: MatDialogRef<EditAddressComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private fb: FormBuilder,
               private letterService: LetterManagementService
@@ -61,6 +66,11 @@ export class EditAddressComponent implements OnInit{
       this.form = this.fb.group({
         items: this.fb.array([]),
       });
+      if(this.content.length != 0){
+        this.cardTitel = this.data.cardTitel;
+        this.content = this.data.content;
+
+      }
     }
 
 
@@ -79,6 +89,11 @@ export class EditAddressComponent implements OnInit{
       })
     );
   }
+
+
+
+
+
   onCancelClick(): void {
     this.dialogRef.close();
   }
@@ -88,8 +103,9 @@ export class EditAddressComponent implements OnInit{
 
 
   displayInConsole() {
+    console.log(this.items.controls.values())
 
-   // console.log("get items: ",this.items.value as Array<string>)
+
     if(this.data.inputType === InputType.DATE){
       this.letterService.contactPersonInfo=[];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -107,7 +123,10 @@ export class EditAddressComponent implements OnInit{
     }
     else {
       this.letterService.editAddressData= this.items.value as Array<string>;
-      console.log("get items: ",this.letterService.editAddressData);
+      console.log("get items: ",this.letterService.editAddressData, "from array "  , this.items.value as Array<string>);
+
+      console.log("data if check", this.data.content )
+
     }
     this.dialogRef.close();
 
@@ -116,9 +135,27 @@ export class EditAddressComponent implements OnInit{
 
 
   ngOnInit(): void {
-    console.log("inputType: ",this.data.inputType);
-    console.log("content: ",this.data.content);
-    //this.items.controls=this.data.content;
+    console.log(this.items.controls)
+    console.log(this.data.content)
+
+
+
+    if (this.data.content.length !== 0 ) {
+      this.data.content.forEach((item) => {
+        this.items.controls.push(this.fb.control({
+          line: item
+        })); // Add each item as a FormControl to the FormArray
+      });
+
+      console.log("content of items in the value: ",this.items.value);
+      console.log("content of items in the controls: ",this.items.controls);
+
+    }
+
+
+    console.log("content after: ",this.data.content);
+
+
+    // this.items.controls=this.data.content as Array<string>;
   }
 }
-

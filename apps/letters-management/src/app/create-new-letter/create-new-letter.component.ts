@@ -62,6 +62,7 @@ export class CreateNewLetterComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
     this.letterCount = this.letterManagementService.getAllLetters().reduce((max, letter) => (letter.id > max ? letter.id : max), 0);
     this.letterManagementService.saveLetter({
       id: 1,
