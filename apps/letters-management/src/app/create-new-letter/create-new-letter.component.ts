@@ -3,7 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import {
   SlideToggleComponent
@@ -22,22 +22,24 @@ import {
 import { Router } from '@angular/router';
 import { LetterManagementService } from '../services/letter-management.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+// @ts-ignore
 import {
-  EditAddressComponent,
+  DialogComponent,
   InputType
-} from '../../../../../ui-components/src/lib/components/ui3/edit-address/edit-address.component';
+} from '../../../../../ui-components/src/lib/components/ui3/dialog/dialog.component';
 import { mapJsonToLetterModel, mapLetterModelToJson } from '../services/mapper/letter-mapper';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { ArrayToStringPipe } from '../pipes/array-to-string.pipe';
 @Component({
   selector: 'digex-task-create-new-letter',
   standalone: true,
   imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, SlideToggleComponent, ButtonComponent,
-            MatInputModule, InputSingleLineComponent, InputTextareaDashedComponent, InputTextareaComponent, FormsModule,
-            EditAddressComponent],
+    MatInputModule, InputSingleLineComponent, InputTextareaDashedComponent, InputTextareaComponent, FormsModule, ArrayToStringPipe],
   templateUrl: './create-new-letter.component.html',
   styleUrl: './create-new-letter.component.css',
-  providers:[DatePipe]
+  providers:[
+    // {provide: MatDialogRef, useValue: {}},
+    // {provide: MAT_DIALOG_DATA, useValue: {}},
+    DatePipe]
 })
 export class CreateNewLetterComponent implements OnInit{
   inputData: { [key: string]: any } = {};
@@ -63,49 +65,37 @@ export class CreateNewLetterComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.letterCount = this.letterManagementService.getAllLetters().reduce((max, letter) => (letter.id > max ? letter.id : max), 0);
-    this.letterManagementService.saveLetter({
-      id: 1,
-      senderAddress: "Company GmbH, Musterstraße 10, 12345 Musterstadt",
-      receiverAddress: ["Test GmbH","Wallstraße 8, Frankfurt","GERMANY"],
-      blockA: ["Date: 01.01.2023","Contact person: Max Mustermann"],
-      subject: "This is an example subject line",
-      body: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
-      footnote: ""
-    });
   }
 
   onSubmit(): void {
-    this.letterManagementService.saveLetter(mapJsonToLetterModel(this.inputData));
+    this.letterCount = this.letterManagementService.getAllLetters().reduce((max, letter) => (letter.id > max ? letter.id : max), 0);
+    let letter = mapJsonToLetterModel(this.inputData);
+    letter.id = this.letterCount + 1;
+    this.letterManagementService.saveLetter(letter);
     console.log("Letter saved!");
   }
 
-  openDialog(): void {
-
-    const dialogRef = this.dialog.open(EditAddressComponent, {
+  openReceiveAddressDialog(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
-      data: {
-        cardTitel: "Edit receiver address",
-        content:this.letterManagementService.mapToString(this.letterManagementService.editAddressData),
-        inputType: InputType.SIMPLE
-      }
+      data: { dialogTitle: "Edit receiver address", inputType: InputType.SIMPLE }
     });
 }
   openContactPerson() {
-    const dialogRef = this.dialog.open(EditAddressComponent, {
+    const dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
-      data: { cardTitel: "Edit contact person", content:this.letterManagementService.mapToString(this.letterManagementService.contactPersonInfo),
-        inputType: InputType.DATE
-      }
+      data: { dialogTitle: "Edit contact person", inputType: InputType.DATE }
     });
   }
 // handle the output from the input component
   handleDataChange(key:string,data: any) {
     this.inputData[key] = data;
-    console.log("received data form Dialog",this.letterManagementService.editAddressData);
+    console.log("received data form InputData",this.inputData);
   }
   onPreview():void{
-    this.inputData=mapLetterModelToJson(this.letterManagementService.getLetter("1"));
+    this.inputData["receiverAddress"]=this.letterManagementService.editAddressData;
+    console.log("receiverAddress on Preview mode: ",this.inputData["receiverAddress"]);
+    this.inputData["blockA"]=this.letterManagementService.contactPersonInfo;
     this.isOnPreview=!this.isOnPreview;
   }
 
