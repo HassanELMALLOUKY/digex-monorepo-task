@@ -37,8 +37,6 @@ import { ArrayToStringPipe } from '../pipes/array-to-string.pipe';
   templateUrl: './create-new-letter.component.html',
   styleUrl: './create-new-letter.component.css',
   providers:[
-    // {provide: MatDialogRef, useValue: {}},
-    // {provide: MAT_DIALOG_DATA, useValue: {}},
     DatePipe]
 })
 export class CreateNewLetterComponent implements OnInit{
@@ -48,6 +46,7 @@ export class CreateNewLetterComponent implements OnInit{
   blockA: string[]=["Block A", "Block A"];
   myButtonText: string="Save";
   isOnPreview: boolean=false;
+  senderRequired: boolean=false;
   constructor(private router: Router, protected letterManagementService: LetterManagementService,
               private fb: FormBuilder, private dialog: MatDialog,)
   {

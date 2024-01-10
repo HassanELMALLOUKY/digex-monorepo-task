@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule],
   template: `
-    <mat-form-field appearance="outline" [style.width.%]="50">
+    <mat-form-field appearance="outline" [style.width.%]="widthSize">
       <mat-label>{{ label }}</mat-label>
       <textarea [(ngModel)]="inputValue" (input)="onInput()" matInput></textarea>
     </mat-form-field>
@@ -22,8 +22,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputTextareaComponent {
   @Input() label:string="Label";
-
   @Input() inputValue = '';
+  @Input() widthSize = 50;
 
   @Output() dataChanged = new EventEmitter<string>();
 
