@@ -1,9 +1,9 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import {
   SlideToggleComponent
@@ -21,13 +21,13 @@ import {
 } from '../../../../../ui-components/src/lib/components/ui2/input-textarea/input-textarea.component';
 import { Router } from '@angular/router';
 import { LetterManagementService } from '../services/letter-management.service';
-import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 // @ts-ignore
 import {
   DialogComponent,
   InputType
 } from '../../../../../ui-components/src/lib/components/ui3/dialog/dialog.component';
-import { mapJsonToLetterModel, mapLetterModelToJson } from '../services/mapper/letter-mapper';
+import { mapJsonToLetterModel } from '../services/mapper/letter-mapper';
 import { ArrayToStringPipe } from '../pipes/array-to-string.pipe';
 @Component({
   selector: 'digex-task-create-new-letter',
@@ -44,9 +44,7 @@ export class CreateNewLetterComponent implements OnInit{
   letterCount: number = 0;
   receiverAddress: string[]=["hello","sir","hhhhh"];
   blockA: string[]=["Block A", "Block A"];
-  myButtonText: string="Save";
   isOnPreview: boolean=false;
-  senderRequired: boolean=false;
   constructor(private router: Router, protected letterManagementService: LetterManagementService,
               private fb: FormBuilder, private dialog: MatDialog,)
   {
@@ -75,13 +73,13 @@ export class CreateNewLetterComponent implements OnInit{
   }
 
   openReceiveAddressDialog(): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       width: '600px',
       data: { dialogTitle: "Edit receiver address", inputType: InputType.SIMPLE }
     });
 }
   openContactPerson() {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    this.dialog.open(DialogComponent, {
       width: '600px',
       data: { dialogTitle: "Edit contact person", inputType: InputType.DATE }
     });

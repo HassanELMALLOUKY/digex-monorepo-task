@@ -1,7 +1,15 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">{{data.dialogTitle}}</h5>
+    <div class="card-title d-flex align-items-center justify-content-between">
+      <h5 >{{data.dialogTitle}}</h5>
+      <span><mat-icon (click)="cancel()" class="cursor-pointer">clear</mat-icon></span>
+    </div>
+
+
+
     <form [formGroup]="form">
       <div formArrayName="lines">
         <div>

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
@@ -13,11 +13,15 @@ import { InputSingleLineComponent } from '../../ui2/input-single-line/input-sing
 import { LetterManagementService } from '../../../../../../apps/letters-management/src/app/services/letter-management.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { LineToString, RemoveDatePrefixPipe } from 'apps/letters-management/src/app/pipes/array-to-string.pipe';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 export interface DialogData {
   dialogTitle: string;
   inputType: InputType;
 }
+
 export enum InputType {
   SIMPLE = 'SIMPLE', DATE = 'DATE'
 }
@@ -29,9 +33,16 @@ export enum InputType {
     MatNativeDateModule, RemoveDatePrefixPipe,LineToString],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css',
+  providers: [
+    provideAnimations(),
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
+  ]
 })
 export class DialogComponent implements OnInit {
   protected readonly InputType = InputType;
+  @Input() cardTitle:string="";
+  @Input() inputType:InputType=InputType.SIMPLE;
   constructor(private fb:FormBuilder,@Inject(MAT_DIALOG_DATA) public data: DialogData,
               private letterService:LetterManagementService,
               public dialogRef: MatDialogRef<DialogComponent>) {}
@@ -45,6 +56,7 @@ export class DialogComponent implements OnInit {
       });
     } else{
       this.letterService.contactPersonInfo.slice(1);
+
       this.letterService.contactPersonInfo.forEach((item)=>{
         this.lines.push(this.fb.group({
           line:[item],
@@ -89,7 +101,7 @@ export class DialogComponent implements OnInit {
       });
       this.letterService.contactPersonInfo[0]="Date: "+formattedDate;
     }
-
+    this.form.reset()
     this.dialogRef.close();
   }
 

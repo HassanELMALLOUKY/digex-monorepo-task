@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LetterModel } from '../models/letter-model';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class LetterManagementService {
   editAddressData:string[]=[];
   contactPersonInfo:any[]=[];
-  
+
   constructor() { }
 
   public saveLetter(letterModel: LetterModel): void {
@@ -17,23 +16,17 @@ export class LetterManagementService {
     letterModel.id = maxId + 1;
     localStorage.setItem(String(letterModel.id), JSON.stringify(letterModel));
   }
-  public getLetter(letterName:string): LetterModel {
-    console.log('LetterManagementService.getLetter()');
-    // @ts-ignore
-    return JSON.parse(localStorage.getItem(letterName));
-  }
   public getAllLetters(): LetterModel[] {
     console.log('LetterManagementService.getAllLetters()');
-    let letters: LetterModel[] = [];
+    const letters: LetterModel[] = [];
     for (let i = 0; i < localStorage.length; i++) {
 
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       letters.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
     }
     return letters;
   }
-  mapToString(data: any[]): string[] {
-    return data.map(item => item.line);
-  }
-  
+
+
 }

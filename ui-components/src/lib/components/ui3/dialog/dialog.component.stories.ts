@@ -1,18 +1,24 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { DialogComponent } from './dialog.component';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
+import { DialogComponent, InputType } from './dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
 
 const meta: Meta<DialogComponent> = {
   component: DialogComponent,
   title: 'DialogComponent',
+  decorators: [
+    moduleMetadata({
+      imports: [MatNativeDateModule /* Add other necessary Angular Material modules here */],
+      // Add providers if required
+    }),
+  ],
 };
 export default meta;
 type Story = StoryObj<DialogComponent>;
 
 export const Primary: Story = {
   args: {
+      data: { dialogTitle: "Edit receiver address", inputType: InputType.SIMPLE }
   },
   }
 

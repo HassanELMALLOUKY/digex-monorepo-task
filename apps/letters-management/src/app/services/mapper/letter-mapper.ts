@@ -12,14 +12,3 @@ export function mapJsonToLetterModel(json: any): LetterModel {
     json.footnote
   );
 }
-export function mapLetterModelToJson(letterModel: LetterModel): any {
-  return {
-    id: letterModel.id,
-    senderAddress: letterModel.senderAddress,
-    receiverAddress: letterModel.receiverAddress,
-    blockA: letterModel.blockA,
-    subject: letterModel.subject,
-    body: letterModel.body,
-    footnote: letterModel.footnote
-  };
-}
