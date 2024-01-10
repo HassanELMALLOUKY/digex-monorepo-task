@@ -1,18 +1,20 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { Form, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
-import { ButtonComponent } from '../ui1/button/button.component';
-import { InputSingleLineComponent } from '../ui2/input-single-line/input-single-line.component';
-import { LetterManagementService } from 'apps/letters-management/src/app/services/letter-management.service';
+import { ButtonComponent } from '../../ui1/button/button.component';
+import { InputSingleLineComponent } from '../../ui2/input-single-line/input-single-line.component';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { LetterManagementService } from '../../../../../../apps/letters-management/src/app/services/letter-management.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { LineToString } from 'apps/letters-management/src/app/pipes/array-to-string.pipe';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { LineToString } from '../../../../../../apps/letters-management/src/app/pipes/array-to-string.pipe';
 export interface DialogData {
   dialogTitle: string;
   inputType: InputType;
@@ -31,7 +33,9 @@ export enum InputType {
 })
 export class DialogComponent implements OnInit {
   protected readonly InputType = InputType;
-  constructor(private fb:FormBuilder,@Inject(MAT_DIALOG_DATA) public data: DialogData,private letterService:LetterManagementService,public dialogRef: MatDialogRef<DialogComponent>) {}
+  constructor(private fb:FormBuilder,@Inject(MAT_DIALOG_DATA) public data: DialogData,
+              private letterService:LetterManagementService,
+              public dialogRef: MatDialogRef<DialogComponent>) {}
 
   ngOnInit(): void {
     if(this.data.inputType==InputType.SIMPLE && this.letterService.editAddressData.length>0){
@@ -69,12 +73,12 @@ export class DialogComponent implements OnInit {
   save(){
     if(this.data.inputType==InputType.SIMPLE){
       this.letterService.editAddressData=[];
-      this.form.value.lines?.map((item: any) => 
+      this.form.value.lines?.map((item: any) =>
       this.letterService.editAddressData.push(item.line));
       console.log("editAddressData",this.letterService.editAddressData);
     }else {
       this.letterService.contactPersonInfo=[];
-      this.form.value.lines?.map((item: any) => 
+      this.form.value.lines?.map((item: any) =>
       this.letterService.contactPersonInfo.push(item.line));
       const date = new Date(this.letterService.contactPersonInfo[0]);
 
@@ -86,7 +90,7 @@ export class DialogComponent implements OnInit {
       });
       this.letterService.contactPersonInfo[0]="Date: "+formattedDate;
     }
-  
+
     this.dialogRef.close();
   }
 
