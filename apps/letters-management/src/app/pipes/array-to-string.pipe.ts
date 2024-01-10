@@ -16,9 +16,9 @@ export class ArrayToStringPipe implements PipeTransform {
   standalone: true,
 })
 export class FirstLinePipe implements PipeTransform {
-  transform(value: any[]): string {
-    if (value && value.length > 0 && value[0].line) {
-      return value[0].line;
+  transform(value: string[]): string {
+    if (value && value.length > 0 && value[0]) {
+      return value[0];
     }
     return '';
   }
@@ -47,7 +47,26 @@ export class ExtractLinePipe implements PipeTransform {
 export class LineToString implements PipeTransform {
   transform(value: any): string {
     if (!value) return '';
+    if (value.toString().startsWith('Date:')) {
+      console.log("inside it");
+      return value.substring(6)}
     return value.line;
+  }
+}
+
+
+@Pipe({
+  name: 'removeDatePrefix',
+  standalone: true
+})
+export class RemoveDatePrefixPipe implements PipeTransform {
+  transform(value: any): string {
+    // Check if the input string starts with "Date: " and remove it
+    if (value && value.startsWith('Date: ')) {
+      return value.substring(6);
+    } else {
+      return value;
+    }
   }
 }
 
