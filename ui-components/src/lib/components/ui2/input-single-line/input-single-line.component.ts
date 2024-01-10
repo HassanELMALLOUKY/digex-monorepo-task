@@ -19,7 +19,6 @@ export class InputSingleLineComponent {
   @Input() label:string="Label";
   @Input() placeHolder:string="Write Something";
   @Input() value: string="";
-
   @Input() inputValue = '';
 
   @Output() dataChanged = new EventEmitter<string>();

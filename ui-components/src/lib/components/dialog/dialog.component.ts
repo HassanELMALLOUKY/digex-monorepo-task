@@ -12,7 +12,7 @@ import { InputSingleLineComponent } from '../ui2/input-single-line/input-single-
 import { LetterManagementService } from 'apps/letters-management/src/app/services/letter-management.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { LineToString } from 'apps/letters-management/src/app/pipes/array-to-string.pipe';
+import { LineToString, RemoveDatePrefixPipe } from 'apps/letters-management/src/app/pipes/array-to-string.pipe';
 export interface DialogData {
   dialogTitle: string;
   inputType: InputType;
@@ -25,7 +25,7 @@ export enum InputType {
   standalone: true,
   imports: [CommonModule,MatButtonModule, MatListModule, MatFormFieldModule, MatInputModule, MatIconModule, ReactiveFormsModule,
     MatDialogActions, MatDialogClose, MatDialogTitle, ButtonComponent, MatDialogContent, InputSingleLineComponent,MatDatepickerModule,
-    MatNativeDateModule, LineToString],
+    MatNativeDateModule, RemoveDatePrefixPipe,LineToString],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css',
 })

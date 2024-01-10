@@ -25,8 +25,8 @@
           <div>
             <p class="font-weight-bold-preview">Preview</p>
             @for (item of form.value.lines; track $index) {
-              @if ($index==0 && data.inputType==InputType.DATE){
-                <p class="item-preview">Date: {{ item | lineToString | date: "MM.dd.YYYY" }}</p>
+              @if ($index==0 && data.inputType==InputType.DATE ){
+                <p class="item-preview">Date: {{ item | lineToString| date: "MM.dd.YYYY" }}</p>
               } @else {
                 <p class="item-preview">{{ item | lineToString  }}</p>
               }

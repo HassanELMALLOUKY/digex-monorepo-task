@@ -28,7 +28,7 @@
     </div>
     <div class="form-container">
       @if(!isOnPreview){
-        <form>
+        <form (submit)="onSubmit()">
           <div class="row">
             <div class="form-group">
               <digex-task-input-single-line [label]="'Sender Address'"  [inputValue]="inputData['senderAddress']" (dataChanged)="handleDataChange('senderAddress',$event)"></digex-task-input-single-line>
@@ -36,12 +36,12 @@
           </div>
           <div class="row mb-2" (click)="openReceiveAddressDialog()">
             <div class="form-group" >
-              <digex-task-input-textarea-dashed [label]="'Receiver Address'" [numberOfRows]="3" [inputValue]="letterManagementService.editAddressData"></digex-task-input-textarea-dashed>
+              <digex-task-input-textarea-dashed [label]="'Receiver Address'" [numberOfRows]="3" [inputValue]="letterManagementService.editAddressData" ></digex-task-input-textarea-dashed>
             </div>
           </div>
           <div class="row mb-5" (click)="openContactPerson()">
             <div class="form-group">
-              <digex-task-input-textarea-dashed [label]="'Contact Person'" [numberOfRows]="2"  [inputValue]="letterManagementService.contactPersonInfo"></digex-task-input-textarea-dashed>
+              <digex-task-input-textarea-dashed [label]="'Contact Person'" [numberOfRows]="2"  [inputValue]="letterManagementService.contactPersonInfo" ></digex-task-input-textarea-dashed>
             </div>
           </div>
           <div class="row">
@@ -51,7 +51,7 @@
           </div>
           <div class="row">
             <div class="form-group">
-              <digex-task-input-textarea label="Body" [inputValue]="inputData['body']"  (dataChanged)="handleDataChange('body',$event)"></digex-task-input-textarea>
+              <digex-task-input-textarea label="Body" [inputValue]="inputData['body']"  (dataChanged)="handleDataChange('body',$event)" aria-required="true"></digex-task-input-textarea>
             </div>
           </div>
           <div class="row">
@@ -65,8 +65,6 @@
           <p style="font-size: small"><u>{{inputData['senderAddress']}}</u></p>
           <p [innerHTML]="inputData['receiverAddress']|arrayToString:'<br>'"></p><br><br>
           <p [innerHTML]="inputData['blockA']|arrayToString:'<br>'"></p><br><br>
-          <!--<p>{{inputData['receiverAddress']|arrayToString:"\n"}} </p>
-          <p>{{inputData['blockA']|arrayToString:"\n"}} </p><br><br>-->
           <p style="font-weight: bold">{{inputData['subject']}}</p>
           <p>{{inputData['body']}}</p>
           <p>{{inputData['footNote']}}</p>

@@ -41,16 +41,13 @@ import { DialogComponent } from '../../../../../ui-components/src/lib/components
   templateUrl: './create-new-letter.component.html',
   styleUrl: './create-new-letter.component.css',
   providers:[
-    // {provide: MatDialogRef, useValue: {}},
-    // {provide: MAT_DIALOG_DATA, useValue: {}},
     DatePipe]
 })
 export class CreateNewLetterComponent implements OnInit{
   inputData: { [key: string]: any } = {};
   letterCount: number = 0;
-  receiverAddress: string[]=["hello","sir","hhhhh"];
-  blockA: string[]=["Block A", "Block A"];
   isOnPreview: boolean=false;
+  senderRequired: boolean=false;
   constructor(private router: Router, protected letterManagementService: LetterManagementService,
               private fb: FormBuilder, private dialog: MatDialog,)
   {
