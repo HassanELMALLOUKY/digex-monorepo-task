@@ -34,14 +34,21 @@ export class DialogComponent implements OnInit {
   constructor(private fb:FormBuilder,@Inject(MAT_DIALOG_DATA) public data: DialogData,private letterService:LetterManagementService,public dialogRef: MatDialogRef<DialogComponent>) {}
 
   ngOnInit(): void {
-    if(this.letterService.editAddressData.length>0){
+    if(this.data.inputType==InputType.SIMPLE && this.letterService.editAddressData.length>0){
       this.letterService.editAddressData.forEach((item)=>{
         this.lines.push(this.fb.group({
           line:[item],
           }));
       });
+    } else{
+      this.letterService.contactPersonInfo.slice(1);
+      this.letterService.contactPersonInfo.forEach((item)=>{
+        this.lines.push(this.fb.group({
+          line:[item],
+          }));
+      });
+    }
   }
-}
   form=this.fb.group({
     lines:this.fb.array([]),
   })
@@ -60,11 +67,26 @@ export class DialogComponent implements OnInit {
     this.dialogRef.close();
   }
   save(){
-    this.letterService.editAddressData=[];
-    //console.log("mapping from value",this.form.value.lines?.map((item: any) => item.line));
-    const arrayResult=this.form.value.lines?.map((item: any) => 
-    this.letterService.editAddressData.push(item.line));
-    console.log("editAddressData",this.letterService.editAddressData);
+    if(this.data.inputType==InputType.SIMPLE){
+      this.letterService.editAddressData=[];
+      this.form.value.lines?.map((item: any) => 
+      this.letterService.editAddressData.push(item.line));
+      console.log("editAddressData",this.letterService.editAddressData);
+    }else {
+      this.letterService.contactPersonInfo=[];
+      this.form.value.lines?.map((item: any) => 
+      this.letterService.contactPersonInfo.push(item.line));
+      const date = new Date(this.letterService.contactPersonInfo[0]);
+
+      // Get the formatted date string (MM.dd.YYYY)
+      const formattedDate = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+      this.letterService.contactPersonInfo[0]="Date: "+formattedDate;
+    }
+  
     this.dialogRef.close();
   }
 
