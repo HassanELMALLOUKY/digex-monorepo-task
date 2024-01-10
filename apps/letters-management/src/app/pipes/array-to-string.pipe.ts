@@ -40,4 +40,16 @@ export class ExtractLinePipe implements PipeTransform {
   }
 }
 
+@Pipe({
+  name: 'lineToString',
+  standalone: true,
+})
+export class LineToString implements PipeTransform {
+  transform(value: any): string {
+    if (!value) return '';
+    return value.line;
+  }
+}
+
+
 

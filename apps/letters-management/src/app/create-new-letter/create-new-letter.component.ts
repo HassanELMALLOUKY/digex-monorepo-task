@@ -3,7 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import {
   SlideToggleComponent
@@ -40,7 +40,10 @@ import { DialogComponent } from '../../../../../ui-components/src/lib/components
     EditAddressComponent, ArrayToStringPipe],
   templateUrl: './create-new-letter.component.html',
   styleUrl: './create-new-letter.component.css',
-  providers:[DatePipe]
+  providers:[
+    // {provide: MatDialogRef, useValue: {}},
+    // {provide: MAT_DIALOG_DATA, useValue: {}},
+    DatePipe]
 })
 export class CreateNewLetterComponent implements OnInit{
   inputData: { [key: string]: any } = {};
@@ -78,31 +81,14 @@ export class CreateNewLetterComponent implements OnInit{
   openReceiveAddressDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
+      data: { dialogTitle: "Edit receiver address", inputType: InputType.SIMPLE }
     });
 }
   openContactPerson() {
-    if(this.letterManagementService.contactPersonInfo.length==0){
-      const dialogRef = this.dialog.open(EditAddressComponent, {
+    const dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
-      data: { cardTitel: "Edit contact person", content:this.letterManagementService.mapToString(this.letterManagementService.contactPersonInfo),
-        inputType: InputType.DATE
-      }
+      data: { dialogTitle: "Edit contact person", inputType: InputType.DATE }
     });
-    } else {
-      const outputArray = this.letterManagementService.mapToString(this.letterManagementService.contactPersonInfo).map(item => {
-        return {
-          "line": item.startsWith("Date: ") ? item : item
-        };
-      });
-      const dialogRef = this.dialog.open(EditAddressComponent, {
-        width: '600px',
-        data: { cardTitel: "Edit contact person", content:outputArray,
-          inputType: InputType.DATE, forUpdate: true
-        }
-      });
-      console.log("outputArray: ",outputArray);
-    }
-    
   }
 // handle the output from the input component
   handleDataChange(key:string,data: any) {
