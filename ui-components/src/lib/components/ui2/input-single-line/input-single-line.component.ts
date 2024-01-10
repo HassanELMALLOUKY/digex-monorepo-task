@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, MatInputModule, FormsModule],
   template: `
-    <mat-form-field appearance="outline" [style.width.%]="50">
+    <mat-form-field appearance="outline" [style.width.%]="widthSize">
       <mat-label >{{ label }}</mat-label>
       <input matInput placeholder="{{label}}"  id="{{label}}" [(ngModel)]="inputValue" (input)="onInput()">
     </mat-form-field>
@@ -20,6 +20,7 @@ export class InputSingleLineComponent {
   @Input() placeHolder:string="Write Something";
   @Input() value: string="";
   @Input() inputValue = '';
+  @Input() widthSize= 50;
 
   @Output() dataChanged = new EventEmitter<string>();
 

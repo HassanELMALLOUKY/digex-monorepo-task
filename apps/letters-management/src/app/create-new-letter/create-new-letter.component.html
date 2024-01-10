@@ -46,17 +46,17 @@
           </div>
           <div class="row">
             <div class="form-group">
-              <digex-task-input-single-line [label]="'Subject (optional)'" [inputValue]="inputData['subject']"  (dataChanged)="handleDataChange('subject',$event)"></digex-task-input-single-line>
+              <digex-task-input-single-line [label]="'Subject (optional)'" [inputValue]="inputData['subject']"  (dataChanged)="handleDataChange('subject',$event)" [widthSize]="90"></digex-task-input-single-line>
             </div>
           </div>
           <div class="row">
             <div class="form-group">
-              <digex-task-input-textarea label="Body" [inputValue]="inputData['body']"  (dataChanged)="handleDataChange('body',$event)" aria-required="true"></digex-task-input-textarea>
+              <digex-task-input-textarea label="Body" [inputValue]="inputData['body']"  (dataChanged)="handleDataChange('body',$event)" aria-required="true" [widthSize]="90"></digex-task-input-textarea>
             </div>
           </div>
           <div class="row">
             <div class="form-group">
-              <digex-task-input-single-line [label]="'Footnote (optional)'" [inputValue]="inputData['footNote']"  (dataChanged)="handleDataChange('footNote',$event)"></digex-task-input-single-line>
+              <digex-task-input-single-line [label]="'Footnote (optional)'" [inputValue]="inputData['footNote']"  (dataChanged)="handleDataChange('footNote',$event)" [widthSize]="90"></digex-task-input-single-line>
             </div>
           </div>
         </form>

@@ -22,22 +22,18 @@ import {
 import { Router } from '@angular/router';
 import { LetterManagementService } from '../services/letter-management.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+// @ts-ignore
 import {
-  EditAddressComponent,
+  DialogComponent,
   InputType
-} from '../../../../../ui-components/src/lib/components/ui3/edit-address/edit-address.component';
+} from '../../../../../ui-components/src/lib/components/ui3/dialog/dialog.component';
 import { mapJsonToLetterModel, mapLetterModelToJson } from '../services/mapper/letter-mapper';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { ArrayToStringPipe } from '../pipes/array-to-string.pipe';
-import { LetterModel } from '../models/letter-model';
-import { DialogComponent } from '../../../../../ui-components/src/lib/components/dialog/dialog.component';
 @Component({
   selector: 'digex-task-create-new-letter',
   standalone: true,
   imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, SlideToggleComponent, ButtonComponent,
-    MatInputModule, InputSingleLineComponent, InputTextareaDashedComponent, InputTextareaComponent, FormsModule,
-    EditAddressComponent, ArrayToStringPipe],
+    MatInputModule, InputSingleLineComponent, InputTextareaDashedComponent, InputTextareaComponent, FormsModule, ArrayToStringPipe],
   templateUrl: './create-new-letter.component.html',
   styleUrl: './create-new-letter.component.css',
   providers:[
@@ -46,6 +42,9 @@ import { DialogComponent } from '../../../../../ui-components/src/lib/components
 export class CreateNewLetterComponent implements OnInit{
   inputData: { [key: string]: any } = {};
   letterCount: number = 0;
+  receiverAddress: string[]=["hello","sir","hhhhh"];
+  blockA: string[]=["Block A", "Block A"];
+  myButtonText: string="Save";
   isOnPreview: boolean=false;
   senderRequired: boolean=false;
   constructor(private router: Router, protected letterManagementService: LetterManagementService,
@@ -64,7 +63,7 @@ export class CreateNewLetterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-  
+
   }
 
   onSubmit(): void {
