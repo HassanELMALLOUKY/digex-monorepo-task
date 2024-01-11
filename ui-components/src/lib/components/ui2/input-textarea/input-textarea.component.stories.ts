@@ -14,13 +14,7 @@ type Story = StoryObj<InputTextareaComponent>;
 export const Primary: Story = {
   args: {
     label:"Label",
-  },
-};
-
-export const Heading: Story = {
-  args: {},
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    expect(canvas.getByText(/input-textarea works!/gi)).toBeTruthy();
+    inputValue: '',
+    widthSize: 50,
   },
 };

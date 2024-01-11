@@ -40,13 +40,11 @@ import { ArrayToStringPipe } from '../pipes/array-to-string.pipe';
     DatePipe]
 })
 export class CreateNewLetterComponent implements OnInit{
+
   inputData: { [key: string]: any } = {};
   letterCount: number = 0;
-  receiverAddress: string[]=["hello","sir","hhhhh"];
-  blockA: string[]=["Block A", "Block A"];
-  myButtonText: string="Save";
   isOnPreview: boolean=false;
-  senderRequired: boolean=false;
+
   constructor(private router: Router, protected letterManagementService: LetterManagementService,
               private fb: FormBuilder, private dialog: MatDialog,)
   {
@@ -65,7 +63,7 @@ export class CreateNewLetterComponent implements OnInit{
   ngOnInit(): void {
 
   }
-
+  // onSubmit function to save the letter in local storage
   onSubmit(): void {
     this.letterCount = this.letterManagementService.getAllLetters().reduce((max, letter) => (letter.id > max ? letter.id : max), 0);
     let letter = mapJsonToLetterModel(this.inputData);
@@ -80,7 +78,8 @@ export class CreateNewLetterComponent implements OnInit{
       data: { dialogTitle: "Edit receiver address", inputType: InputType.SIMPLE }
     });
 }
-  openContactPerson() {
+  
+  openContactPersonDialog() {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
       data: { dialogTitle: "Edit contact person", inputType: InputType.DATE }
@@ -91,9 +90,9 @@ export class CreateNewLetterComponent implements OnInit{
     this.inputData[key] = data;
     console.log("received data form InputData",this.inputData);
   }
+
   onPreview():void{
     this.inputData["receiverAddress"]=this.letterManagementService.editAddressData;
-    console.log("receiverAddress on Preview mode: ",this.inputData["receiverAddress"]);
     this.inputData["blockA"]=this.letterManagementService.contactPersonInfo;
     this.isOnPreview=!this.isOnPreview;
   }

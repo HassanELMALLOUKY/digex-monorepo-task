@@ -13,7 +13,7 @@ import { InputSingleLineComponent } from '../../ui2/input-single-line/input-sing
 import { LetterManagementService } from '../../../../../../apps/letters-management/src/app/services/letter-management.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { LineToString, RemoveDatePrefixPipe } from 'apps/letters-management/src/app/pipes/array-to-string.pipe';
+import { LineToString } from 'apps/letters-management/src/app/pipes/array-to-string.pipe';
 export interface DialogData {
   dialogTitle: string;
   inputType: InputType;
@@ -26,9 +26,11 @@ export enum InputType {
   standalone: true,
   imports: [CommonModule,MatButtonModule, MatListModule, MatFormFieldModule, MatInputModule, MatIconModule, ReactiveFormsModule,
     MatDialogActions, MatDialogClose, MatDialogTitle, ButtonComponent, MatDialogContent, InputSingleLineComponent,MatDatepickerModule,
-    MatNativeDateModule, RemoveDatePrefixPipe,LineToString],
+    MatNativeDateModule,LineToString],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css',
+  providers:[
+  ]
 })
 export class DialogComponent implements OnInit {
   protected readonly InputType = InputType;
@@ -37,7 +39,7 @@ export class DialogComponent implements OnInit {
               public dialogRef: MatDialogRef<DialogComponent>) {}
 
   ngOnInit(): void {
-    if(this.data.inputType==InputType.SIMPLE && this.letterService.editAddressData.length>0){
+    if(this.data.inputType==InputType.SIMPLE){
       this.letterService.editAddressData.forEach((item)=>{
         this.lines.push(this.fb.group({
           line:[item],
@@ -89,7 +91,7 @@ export class DialogComponent implements OnInit {
       });
       this.letterService.contactPersonInfo[0]="Date: "+formattedDate;
     }
-
+    
     this.dialogRef.close();
   }
 

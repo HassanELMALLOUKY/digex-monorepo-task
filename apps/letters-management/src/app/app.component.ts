@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonComponent } from '../../../../ui-components/src/lib/components/ui1/button/button.component';
 import { CardComponent } from '../../../../ui-components/src/lib/components/ui1/card/card.component';
@@ -12,12 +11,15 @@ import { LetterManagementService } from './services/letter-management.service';
 import { LetterModel } from './models/letter-model';
 import { of } from 'rxjs';
 import { ArrayToStringPipe, FirstLinePipe } from "./pipes/array-to-string.pipe";
+
+
+
 @Component({
     standalone: true,
     selector: 'digex-task-root',
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [NxWelcomeComponent,
+    imports: [
         RouterModule,
         ButtonComponent,
         MatButtonModule,
@@ -41,13 +43,9 @@ export class AppComponent  implements OnInit{
       console.log(letter);
     });
   }
+
+  // check if the current path is home
   isHome(): boolean {
     return this.location.path() === '';
   }
-
-  resetLetters() {
-    localStorage.clear();
-  }
-
-  protected readonly of = of;
 }

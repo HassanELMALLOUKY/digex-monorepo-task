@@ -17,28 +17,13 @@ export class ArrayToStringPipe implements PipeTransform {
 })
 export class FirstLinePipe implements PipeTransform {
   transform(value: string[]): string {
-    if (value && value.length > 0 && value[0]) {
+    if (value.length > 0) {
       return value[0];
     }
     return '';
   }
 }
 
-@Pipe({
-  name: 'extractLine',
-  standalone: true,
-})
-export class ExtractLinePipe implements PipeTransform {
-  transform(dataArray: any[]): string[] {
-    if (!dataArray || !dataArray.length) {
-      return [];
-    }
-
-    return dataArray.map(item => {
-      return item.line.line;
-    });
-  }
-}
 
 @Pipe({
   name: 'lineToString',

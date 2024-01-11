@@ -1,9 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { InputTextareaDashedComponent } from './input-textarea-dashed.component';
 
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-
 const meta: Meta<InputTextareaDashedComponent> = {
   component: InputTextareaDashedComponent,
   title: 'InputTextareaDashedComponent',

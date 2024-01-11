@@ -16,9 +16,8 @@ import { FormsModule } from '@angular/forms';
   styles: ``,
 })
 export class InputSingleLineComponent {
-  @Input() label:string="Label";
-  @Input() placeHolder:string="Write Something";
-  @Input() value: string="";
+  @Input() label:string="";
+  @Input() placeHolder:string="";
   @Input() inputValue = '';
   @Input() widthSize= 50;
 
